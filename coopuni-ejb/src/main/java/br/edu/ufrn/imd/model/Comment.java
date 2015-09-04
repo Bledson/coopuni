@@ -4,11 +4,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "comments")
+@XmlRootElement
 public class Comment implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
