@@ -1,9 +1,12 @@
 package br.edu.ufrn.imd.coopuni.boundary;
 
-import br.edu.ufrn.imd.coopuni.model.Post;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
+import br.edu.ufrn.imd.coopuni.model.Member;
+import br.edu.ufrn.imd.coopuni.model.Post;
 
 public class PostDAO implements AbstractDAO<Long, Post> {
   @Inject
@@ -27,5 +30,13 @@ public class PostDAO implements AbstractDAO<Long, Post> {
   @Override
   public void update(Post entity) {
 
+  }
+  
+  public List<Post> getAll() {
+	  return null;
+  }
+  
+  List<Post> getPostsByUser(Member member) {
+	  return null;
   }
 }

@@ -1,7 +1,7 @@
 package br.edu.ufrn.imd.coopuni.controller;
 
 import br.edu.ufrn.imd.coopuni.model.Member;
-import br.edu.ufrn.imd.coopuni.service.MemberRegistration;
+import br.edu.ufrn.imd.coopuni.service.MemberService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -17,29 +17,39 @@ public class MemberController {
   private FacesContext facesContext;
 
   @Inject
-  private MemberRegistration memberRegistration;
+  private MemberService memberRegistration;
 
-  private Member newMember;
+  private Member member;
 
   @Named
-  @Produces
-  public Member getNewMember() { return newMember; }
+  @Produces 
+  public Member getMember() {
+	return member;
+}
 
-  public void register() throws Exception {
+
+public void setMember(Member member) {
+	this.member = member;
+}
+
+
+public String register() throws Exception {
     try {
-      memberRegistration.register(newMember);
+      memberRegistration.register(member);
       facesContext.addMessage(null,
           new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));
       initNewMember();
+      return "sucess";
     } catch (Exception e) {
       String errorMessage = getRootErrorMessage(e);
       FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registro sem sucesso");
       facesContext.addMessage(null, m);
     }
+	return null;
   }
 
   @PostConstruct
-  public void initNewMember() { newMember = new Member(); }
+  public void initNewMember() { member = new Member(); }
 
   private String getRootErrorMessage(Exception e) {
     String errorMessage = "Registro falhou. Veja o log do servidor para mais informações";
@@ -53,5 +63,5 @@ public class MemberController {
       t = t.getCause();
     }
     return errorMessage;
-  }
+  }	
 }
