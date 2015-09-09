@@ -19,6 +19,10 @@ public class Post implements Serializable {
 
   @NotEmpty
   private int category;
+  
+  @NotEmpty
+  @Column(name="post_type")
+  private int type;
 
   @Size(max = 250)
   private String description;
@@ -41,4 +45,72 @@ public class Post implements Serializable {
   @JoinColumn(name = "member_id", referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Member member;
+
+public long getId() {
+	return id;
+}
+
+public void setId(long id) {
+	this.id = id;
+}
+
+public int getCategory() {
+	return category;
+}
+
+public void setCategory(int category) {
+	this.category = category;
+}
+
+public int getType() {
+	return type;
+}
+
+public void setType(int type) {
+	this.type = type;
+}
+
+public String getDescription() {
+	return description;
+}
+
+public void setDescription(String description) {
+	this.description = description;
+}
+
+public Date getCreatedAt() {
+	return createdAt;
+}
+
+public void setCreatedAt(Date createdAt) {
+	this.createdAt = createdAt;
+}
+
+public Date getUpdatedAt() {
+	return updatedAt;
+}
+
+public void setUpdatedAt(Date updatedAt) {
+	this.updatedAt = updatedAt;
+}
+
+public Geolocation getGeolocation() {
+	return geolocation;
+}
+
+public void setGeolocation(Geolocation geolocation) {
+	this.geolocation = geolocation;
+}
+
+
+public Member getMember() {
+	return member;
+}
+
+public void setMember(Member member) {
+	this.member = member;
+}
+
+
+
 }

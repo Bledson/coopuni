@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import staticdata.StaticPosts;
 import br.edu.ufrn.imd.coopuni.model.Member;
 import br.edu.ufrn.imd.coopuni.model.Post;
 
@@ -33,7 +34,8 @@ public class PostDAO implements AbstractDAO<Long, Post> {
   }
   
   public List<Post> getAll() {
-	  return null;
+	  StaticPosts posts = new StaticPosts();
+	  return posts.getAll();
   }
   
   List<Post> getPostsByUser(Member member) {
