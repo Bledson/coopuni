@@ -1,4 +1,4 @@
-package br.edu.ufrn.imd.model;
+package br.edu.ufrn.imd.coopuni.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -32,7 +32,7 @@ public class Comment implements Serializable {
   @ManyToOne(optional = false)
   private Post post;
 
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @JoinColumn(name = "member_id", referencedColumnName = "id")
   @ManyToOne(optional = false)
-  private User user;
+  private Member member;
 }

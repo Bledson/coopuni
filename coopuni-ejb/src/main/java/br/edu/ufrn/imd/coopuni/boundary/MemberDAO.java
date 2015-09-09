@@ -1,17 +1,16 @@
-package br.edu.ufrn.imd.boundary;
+package br.edu.ufrn.imd.coopuni.boundary;
 
-import br.edu.ufrn.imd.model.Comment;
+import br.edu.ufrn.imd.coopuni.model.Member;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-public class CommentDAO implements AbstractDAO<Long, Comment> {
+public class MemberDAO implements AbstractDAO<Long, Member> {
   @Inject
   private EntityManager em;
 
   @Override
-  public void create(Comment entity) {
-
+  public void create(Member entity) {
   }
 
   @Override
@@ -25,7 +24,7 @@ public class CommentDAO implements AbstractDAO<Long, Comment> {
   }
 
   @Override
-  public void update(Comment entity) {
+  public void update(Member entity) {
 
   }
 }

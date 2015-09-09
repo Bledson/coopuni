@@ -1,6 +1,6 @@
-package br.edu.ufrn.imd.boundary;
+package br.edu.ufrn.imd.coopuni.boundary;
 
-import br.edu.ufrn.imd.model.Geolocation;
+import br.edu.ufrn.imd.coopuni.model.Geolocation;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

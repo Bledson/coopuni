@@ -1,4 +1,4 @@
-package br.edu.ufrn.imd.util;
+package br.edu.ufrn.imd.coopuni.util;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;

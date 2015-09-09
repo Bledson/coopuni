@@ -1,4 +1,4 @@
-package br.edu.ufrn.imd.model;
+package br.edu.ufrn.imd.coopuni.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

@@ -1,4 +1,4 @@
-package br.edu.ufrn.imd.boundary;
+package br.edu.ufrn.imd.coopuni.boundary;
 
 public interface AbstractDAO<K, E> {
   void create(E entity);
