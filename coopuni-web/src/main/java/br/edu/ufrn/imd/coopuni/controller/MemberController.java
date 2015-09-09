@@ -23,7 +23,9 @@ public class MemberController {
 
   @Named
   @Produces
-  public Member getNewMember() { return newMember; }
+  public Member getNewMember() {
+    return newMember;
+  }
 
   public void register() throws Exception {
     try {
@@ -39,7 +41,9 @@ public class MemberController {
   }
 
   @PostConstruct
-  public void initNewMember() { newMember = new Member(); }
+  public void initNewMember() {
+    newMember = new Member();
+  }
 
   private String getRootErrorMessage(Exception e) {
     String errorMessage = "Registro falhou. Veja o log do servidor para mais informações";
