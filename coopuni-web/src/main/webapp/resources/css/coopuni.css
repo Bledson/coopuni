@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+
+.navbar-default {
+	    background-color: #0288D1	;
+}
+
+.navbar-default  .navbar-brand {
+	color: #FFFFFF;
+	font-size: 25px;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #FFFFFF;
+}
+.navbar {
+	margin-bottom: 3px;
+}
+.glyphicon {
+    font-size: 18px;
+}
+
+body {
+	background-color: #CFD8DC;
+}
+
+.btn-orange {
+	background-color: #FFAB91;
+}
+
+.principal {
+	background-color: #FFFFFF;	
+	height: 100%;
+}
+
+.circular {	
+	width: 100px;
+	height: 100px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;	
+	box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);	
+}
