@@ -1,13 +1,14 @@
 package br.edu.ufrn.imd.coopuni.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import br.edu.ufrn.imd.coopuni.model.Member;
 import br.edu.ufrn.imd.coopuni.model.Post;
 import br.edu.ufrn.imd.coopuni.service.PostService;
 
@@ -32,7 +33,7 @@ public class PostController {
 	}
 
 	private Post post;
-
+	
 	public Post getPost() {
 		return post;
 	}	
@@ -66,6 +67,40 @@ public class PostController {
 //		    facesContext.addMessage(null, m);
 		}
 		return null;
+	}
+	
+	public String getType(int type){
+		switch(type){
+			case 1: return "Problema";
+			case 2: return "Proposta";
+			default: return "Não especificado";
+		}		
+	}
+	
+	public void votar() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String vote = this.getVoteParam(fc);
+		String post_id = this.getPostIdParam(fc);
+		Post post = postService.getPostById(Integer.parseInt(post_id));
+		if(vote.equals("up")) {
+			post.setLikes(post.getLikes()+1);
+		}
+		else if (vote.equals("down")) {
+			post.setDownvotes(post.getDownvotes()+1);
+		}
+	}
+	
+	
+	public String getVoteParam(FacesContext fc) {
+		Map<String,String> params = 
+                fc.getExternalContext().getRequestParameterMap();
+		return params.get("vote");
+	}
+
+	public String getPostIdParam(FacesContext fc) {
+		Map<String,String> params = 
+                fc.getExternalContext().getRequestParameterMap();
+		return params.get("post_id");
 	}
 	
 	

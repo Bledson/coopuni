@@ -27,4 +27,8 @@ public class PostService {
 	public List<Post> getPostsByUser(Member member){
 		return null;
 	}
+	
+	public Post getPostById(int id) {
+		return postDAO.getPostById(id);
+	}
 }

@@ -46,8 +46,19 @@ public class Member implements Serializable {
 
   @OneToMany(mappedBy = "member")
   private Collection<Post> postCollection;
+  
+  @Column(name = "img_path")
+  private String imgPath;
+  
+  public String getImgPath() {
+	return imgPath;
+}
 
-  public long getId() {
+public void setImgPath(String imgPath) {
+	this.imgPath = imgPath;
+}
+
+public long getId() {
     return id;
   }
 

@@ -38,7 +38,16 @@ public class PostDAO implements AbstractDAO<Long, Post> {
 	  return posts.getAll();
   }
   
-  List<Post> getPostsByUser(Member member) {
+  public List<Post> getPostsByUser(Member member) {
+	  return null;
+  }
+  
+  public Post getPostById(int id) {
+	  StaticPosts posts = new StaticPosts();
+	  if(id==1)
+		  return posts.getPost1();
+	  else if(id==2)
+		  return posts.getPost2();
 	  return null;
   }
 }
