@@ -1,10 +1,10 @@
-																																																																																																																																																																																																																																																																																																@CHARSET "UTF-8";
+@CHARSET "UTF-8";
 
 .navbar-default {
-  background-color: #0288D1	;
+  background-color: #0288D1;
 }
 
-.navbar-default  .navbar-brand {
+.navbar-default .navbar-brand {
   color: #FFFFFF;
   font-size: 25px;
 }
@@ -12,16 +12,18 @@
 .navbar-default .navbar-nav > li > a {
   color: #FFFFFF;
 }
+
 .navbar {
   margin-bottom: 3px;
 }
+
 .glyphicon {
   font-size: 18px;
 }
 
 body {
   background-color: #F5F5F5;
-  padding-top: 60px;
+  padding-top: 65px;
 }
 
 .btn-orange {
@@ -31,6 +33,9 @@ body {
 .principal {
   background-color: #FFFFFF;
   height: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 4px;
 }
 
 .circular {
@@ -39,7 +44,7 @@ body {
   border-radius: 150px;
   -webkit-border-radius: 150px;
   -moz-border-radius: 150px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  box-shadow: 0 0 8px rgb(75, 75, 75);
+  -webkit-box-shadow: 0 0 8px rgb(75, 75, 75);
+  -moz-box-shadow: 0 0 8px rgb(75, 75, 75);
 }

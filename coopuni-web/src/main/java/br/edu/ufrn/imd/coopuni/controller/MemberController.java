@@ -22,18 +22,18 @@ public class MemberController {
   private Member member;
 
   @Named
-  @Produces 
+  @Produces
   public Member getMember() {
-	return member;
-}
+    return member;
+  }
 
 
-public void setMember(Member member) {
-	this.member = member;
-}
+  public void setMember(Member member) {
+    this.member = member;
+  }
 
 
-public String register() throws Exception {
+  public String register() throws Exception {
     try {
       memberRegistration.register(member);
       facesContext.addMessage(null,
@@ -45,11 +45,13 @@ public String register() throws Exception {
       FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registro sem sucesso");
       facesContext.addMessage(null, m);
     }
-	return null;
+    return null;
   }
 
   @PostConstruct
-  public void initNewMember() { member = new Member(); }
+  public void initNewMember() {
+    member = new Member();
+  }
 
   private String getRootErrorMessage(Exception e) {
     String errorMessage = "Registro falhou. Veja o log do servidor para mais informações";
@@ -63,5 +65,5 @@ public String register() throws Exception {
       t = t.getCause();
     }
     return errorMessage;
-  }	
+  }
 }
