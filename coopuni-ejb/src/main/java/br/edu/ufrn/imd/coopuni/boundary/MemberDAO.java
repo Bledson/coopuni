@@ -11,11 +11,11 @@ public class MemberDAO implements AbstractDAO<Long, Member> {
 
   @Override
   public void create(Member entity) {
+    em.persist(entity);
   }
 
   @Override
   public void delete(Long id) {
-
   }
 
   @Override

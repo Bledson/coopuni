@@ -21,7 +21,7 @@ public class MemberService {
   private Logger log;
 
   public void register(Member member) throws Exception {
-    log.info("Registering " + member.getUsername());
+    log.info("Registrando " + member.getUsername());
     memberDAO.create(member);
     memberEventSrc.fire(member);
   }
