@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .navbar-default {
-  background-color : #3f51b5;
+  background-color: #3f51b5;
   border-bottom: 4px solid #303f9f;
 }
 
@@ -17,9 +17,6 @@
 
 .navbar-default .navbar-nav > li > a {
   color: #FFFFFF;
-}
-
-.glyphicon {
   font-size: 18px;
 }
 
@@ -28,20 +25,15 @@ body {
   padding-top: 70px;
 }
 
-.navbar-default .navbar-nav > li > a {
-  font-size: 18px;
-}
-
-.like {
-  color: yellow;
-}
-
-.btn-orange {
+.btn-publicar {
   background-color: #FFAB91;
+  margin-top: 8px;
+  margin-right: 10px;
+  color: white;
 }
 
 .principal {
-  background-color : #FFFFFF;
+  background-color: #FFFFFF;
   height: 100%;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -52,12 +44,10 @@ body {
 .circular {
   width: 100px;
   height: 100px;
-  border-radius: 150px;
-  -webkit-border-radius: 150px;
-  -moz-border-radius: 150px;
-  box-shadow: 0 0 8px rgb(75, 75, 75);
-  -webkit-box-shadow: 0 0 8px rgb(75, 75, 75);
-  -moz-box-shadow: 0 0 8px rgb(75, 75, 75);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+
 }
 
 .arredondar {
@@ -66,6 +56,11 @@ body {
 
 .bg-color-blue {
   color: #0288D1;
+}
+
+.bg-color-purple {
+  background-color: #3f51b5;
+  color: white;
 }
 
 .bg-color-green {
@@ -85,13 +80,6 @@ body {
 
 .comentario {
   padding-top: 15px;
-}
-
-.img-circle {
-  width: 40px;
-  box-shadow: 0 0 8px rgb(75, 75, 75);
-  -webkit-box-shadow: 0 0 8px rgb(75, 75, 75);
-  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
 #post {
