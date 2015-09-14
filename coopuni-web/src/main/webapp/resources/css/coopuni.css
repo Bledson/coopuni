@@ -61,6 +61,10 @@ body {
   color: #0288D1;
 }
 
+.bg-color-purple {
+	background-color : #3f51b5;
+	color: white;
+}
 .bg-color-green {
   color: green;
 }
