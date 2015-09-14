@@ -19,9 +19,9 @@ public class Post implements Serializable {
 
   @NotEmpty
   private int category;
-  
+
   @NotEmpty
-  @Column(name="post_type")
+  @Column(name = "post_type")
   private int type;
 
   @Size(max = 250)
@@ -78,71 +78,70 @@ public void setImgPath(String imgPath) {
 	this.imgPath = imgPath;
 }
 
-public long getId() {
-	return id;
-}
+  public long getId() {
+    return id;
+  }
 
-public void setId(long id) {
-	this.id = id;
-}
+  public void setId(long id) {
+    this.id = id;
+  }
 
-public int getCategory() {
-	return category;
-}
+  public int getCategory() {
+    return category;
+  }
 
-public void setCategory(int category) {
-	this.category = category;
-}
+  public void setCategory(int category) {
+    this.category = category;
+  }
 
-public int getType() {
-	return type;
-}
+  public int getType() {
+    return type;
+  }
 
-public void setType(int type) {
-	this.type = type;
-}
+  public void setType(int type) {
+    this.type = type;
+  }
 
-public String getDescription() {
-	return description;
-}
+  public String getDescription() {
+    return description;
+  }
 
-public void setDescription(String description) {
-	this.description = description;
-}
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-public Date getCreatedAt() {
-	return createdAt;
-}
+  public Date getCreatedAt() {
+    return createdAt;
+  }
 
-public void setCreatedAt(Date createdAt) {
-	this.createdAt = createdAt;
-}
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
 
-public Date getUpdatedAt() {
-	return updatedAt;
-}
+  public Date getUpdatedAt() {
+    return updatedAt;
+  }
 
-public void setUpdatedAt(Date updatedAt) {
-	this.updatedAt = updatedAt;
-}
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 
-public Geolocation getGeolocation() {
-	return geolocation;
-}
+  public Geolocation getGeolocation() {
+    return geolocation;
+  }
 
-public void setGeolocation(Geolocation geolocation) {
-	this.geolocation = geolocation;
-}
+  public void setGeolocation(Geolocation geolocation) {
+    this.geolocation = geolocation;
+  }
 
 
-public Member getMember() {
-	return member;
-}
+  public Member getMember() {
+    return member;
+  }
 
-public void setMember(Member member) {
-	this.member = member;
-}
-
+  public void setMember(Member member) {
+    this.member = member;
+  }
 
 
 }

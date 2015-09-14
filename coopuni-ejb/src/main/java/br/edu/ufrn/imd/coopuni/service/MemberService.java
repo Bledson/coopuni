@@ -1,13 +1,12 @@
 package br.edu.ufrn.imd.coopuni.service;
 
-import java.util.logging.Logger;
+import br.edu.ufrn.imd.coopuni.boundary.MemberDAO;
+import br.edu.ufrn.imd.coopuni.model.Member;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-
-import br.edu.ufrn.imd.coopuni.boundary.MemberDAO;
-import br.edu.ufrn.imd.coopuni.model.Member;
+import java.util.logging.Logger;
 
 @Stateless
 public class MemberService {
