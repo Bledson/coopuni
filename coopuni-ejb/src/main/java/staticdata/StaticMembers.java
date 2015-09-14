@@ -18,12 +18,15 @@ public class StaticMembers {
 		member1.setPassword("123");
 		member1.setUsername("member1");
 		member1.setCreatedAt(new Date());
+		member1.setImgPath("us-ft-1.png");
+		/////////////////////////				
 		member2 = new Member();
 		member2.setEmail("member2@email.com");
 		member2.setId(2);
 		member2.setPassword("123");
 		member2.setUsername("member2");
-		member2.setCreatedAt(new Date());	
+		member2.setCreatedAt(new Date());
+		member2.setImgPath("us-ft-1.png");
 		
 	}
 	
