@@ -16,7 +16,7 @@ public class PostService {
 
 
   public void register(Post post) throws Exception {
-
+	  postDAO.create(post);
   }
 
   public List<Post> getAll() {
@@ -30,4 +30,5 @@ public class PostService {
   public Post getPostById(int id) {
     return postDAO.getPostById(id);
   }
+    
 }

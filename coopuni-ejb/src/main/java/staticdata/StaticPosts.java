@@ -8,37 +8,42 @@ import br.edu.ufrn.imd.coopuni.model.Post;
 
 public class StaticPosts {
 	
-	private final static int SALA_DE_AULA = 1;
+	private final static String SALA_DE_AULA = "SALA DE AULA";
 	public Post post1;
 	public Post post2;
 	StaticMembers members;
+	private List<Post> posts;
 	
 	public StaticPosts() {
+		posts = new ArrayList<Post>();
 		members = new StaticMembers();
 		post1 = new Post();
 		post1.setCategory(SALA_DE_AULA);
-		post1.setType(1);
+		post1.setType("DENUNCIA");
 		post1.setId(1);
 		post1.setDescription("sala de aula luz com problema");
 		post1.setMember(members.getById(1));
 		post1.setGeolocation(new Geolocation());
-		post1.setImgPath("img-pb-1.jpg");	
+		post1.setImgPath("avatar2.png");	
 		///////////////
 		post2= new Post();
 		post2.setCategory(SALA_DE_AULA);
-		post2.setType(2);
+		post2.setType("DENUNCIA");
 		post2.setId(2);
 		post2.setDescription("sala de aula luz pode melhorar");
 		post2.setMember(members.getById(2));
 		post2.setGeolocation(new Geolocation());		
-		post2.setImgPath("img-pb-1.jpg");
-	}
-
-	
-	public List<Post> getAll(){ 
-		List<Post> posts = new ArrayList<Post>();
+		post2.setImgPath("avatar.png");
 		posts.add(post1);
 		posts.add(post2);
+		
+	}
+
+	public void setPosts(Post p){
+		posts.add(p);
+	}
+	
+	public List<Post> getAll(){ 				
 		return posts;
 	}
 

@@ -18,11 +18,11 @@ public class Post implements Serializable {
   private long id;
 
   @NotEmpty
-  private int category;
+  private String category;
 
   @NotEmpty
   @Column(name = "post_type")
-  private int type;
+  private String type;
 
   @Size(max = 250)
   private String description;
@@ -86,19 +86,19 @@ public void setImgPath(String imgPath) {
     this.id = id;
   }
 
-  public int getCategory() {
+  public String getCategory() {
     return category;
   }
 
-  public void setCategory(int category) {
+  public void setCategory(String category) {
     this.category = category;
   }
 
-  public int getType() {
+  public String getType() {
     return type;
   }
 
-  public void setType(int type) {
+  public void setType(String type) {
     this.type = type;
   }
 

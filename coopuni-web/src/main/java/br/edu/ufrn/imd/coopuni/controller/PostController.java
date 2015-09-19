@@ -1,8 +1,11 @@
 package br.edu.ufrn.imd.coopuni.controller;
 
+import br.edu.ufrn.imd.coopuni.model.Geolocation;
+import br.edu.ufrn.imd.coopuni.model.Member;
 import br.edu.ufrn.imd.coopuni.model.Post;
 import br.edu.ufrn.imd.coopuni.service.PostService;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -27,7 +30,7 @@ public class PostController {
   public void setPosts(List<Post> posts) {
     this.posts = posts;
   }
-
+  
   private Post post;
 
   public Post getPost() {
@@ -37,14 +40,21 @@ public class PostController {
   public void setPost(Post post) {
     this.post = post;
   }
+  
 
-  public String register() throws Exception {
-    try {
+  @PostConstruct
+  public void initNewPost() {
+    post = new Post();
+    post.setGeolocation(new Geolocation());
+  }
+  
+public String register() throws Exception {
+    try {      
       postService.register(post);
       facesContext.addMessage(null,
-          new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));
-      post = new Post();
-      return "sucess";
+          new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));  
+      initNewPost();
+      return "success";
     } catch (Exception e) {
 //	      String errorMessage = getRootErrorMessage(e);
 //	      FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registro sem sucesso");
@@ -65,17 +75,7 @@ public class PostController {
     return null;
   }
 
-  public String getType(int type) {
-    switch (type) {
-      case 1:
-        return "Problema";
-      case 2:
-        return "Proposta";
-      default:
-        return "Não especificado";
-    }
-  }
-
+  
   public void votar() {
     FacesContext fc = FacesContext.getCurrentInstance();
     String vote = this.getVoteParam(fc);
@@ -99,4 +99,7 @@ public class PostController {
         fc.getExternalContext().getRequestParameterMap();
     return params.get("post_id");
   }
+  
+  
+  
 }

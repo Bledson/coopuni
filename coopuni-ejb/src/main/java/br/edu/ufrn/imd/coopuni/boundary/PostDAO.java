@@ -11,10 +11,15 @@ import java.util.List;
 public class PostDAO implements AbstractDAO<Long, Post> {
   @Inject
   private EntityManager em;
+  StaticPosts posts;
+  
+  public PostDAO() {
+	  posts = new StaticPosts();
+  }
 
   @Override
   public void create(Post entity) {
-
+	  posts.setPosts(entity);	  
   }
 
   @Override
@@ -32,8 +37,7 @@ public class PostDAO implements AbstractDAO<Long, Post> {
 
   }
 
-  public List<Post> getAll() {
-    StaticPosts posts = new StaticPosts();
+  public List<Post> getAll() {    
     return posts.getAll();
   }
 
