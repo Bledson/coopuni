@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,11 +19,14 @@ public class Geolocation implements Serializable {
 
   @Digits(fraction = 6, integer = 10)
   @NotEmpty
-  private float latitude;
+  private Float latitude;
 
   @Digits(fraction = 6, integer = 10)
   @NotEmpty
-  private float longitude;
+  private Float longitude;
+
+  @Size(max = 100)
+  private String description;
 
   @Column(name = "created_at")
   @Temporal(TemporalType.DATE)
@@ -34,32 +38,28 @@ public class Geolocation implements Serializable {
 
   @OneToOne(mappedBy = "geolocation")
   private Post post;
-  
-  private String descricao;
 
-public float getLatitude() {
-	return latitude;
-}
+  public float getLatitude() {
+    return latitude;
+  }
 
-public void setLatitude(float latitude) {
-	this.latitude = latitude;
-}
+  public void setLatitude(float latitude) {
+    this.latitude = latitude;
+  }
 
-public float getLongitude() {
-	return longitude;
-}
+  public float getLongitude() {
+    return longitude;
+  }
 
-public void setLongitude(float longitude) {
-	this.longitude = longitude;
-}
+  public void setLongitude(float longitude) {
+    this.longitude = longitude;
+  }
 
-public String getDescricao() {
-	return descricao;
-}
+  public String getDescription() {
+    return description;
+  }
 
-public void setDescricao(String descricao) {
-	this.descricao = descricao;
-}
-  
-  
+  public void setDescription(String description) {
+    this.description = description;
+  }
 }

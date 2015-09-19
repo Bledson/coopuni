@@ -8,7 +8,7 @@
 <h:body>
   <ui:composition template="WEB-INF/templates/base.xhtml">
     <ui:define name="content">
-      <h:form>
+      <h:form enctype="multipart/form-data">
         <div class="form-group">
           <h:outputLabel value="Nome de usuário:"/>
           <h:inputText styleClass="form-control" value="#{memberController.member.username}"/>
@@ -21,9 +21,14 @@
           <h:outputLabel value="Senha:"/>
           <h:inputText styleClass="form-control" value="#{memberController.member.password}" p:type="password"/>
         </div>
+        <div class="form-group">
+          <h:outputLabel value="Imagem do perfil:"/>
+          <h:inputFile/>
+        </div>
         <hr/>
         <div class="form-group">
-          <h:commandButton styleClass="btn btn-success pull-right" value="Create account" action="#{memberController.register}"/>
+          <h:commandButton styleClass="btn btn-success pull-right" value="Create account"
+                           action="#{memberController.register}"/>
         </div>
       </h:form>
     </ui:define>

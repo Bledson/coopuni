@@ -36,7 +36,7 @@ public class Post implements Serializable {
   private Date updatedAt;
 
   @JoinColumn(name = "geolocation_id", referencedColumnName = "id")
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private Geolocation geolocation;
 
   @OneToMany(mappedBy = "post")
@@ -45,38 +45,38 @@ public class Post implements Serializable {
   @JoinColumn(name = "member_id", referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Member member;
-  
+
   @Column(name = "img_path")
   private String imgPath;
-  
+
   private int likes;
-  
+
   private int downvotes;
-    
-  
-public int getLikes() {
-	return likes;
-}
 
-public void setLikes(int likes) {
-	this.likes = likes;
-}
 
-public int getDownvotes() {
-	return downvotes;
-}
+  public int getLikes() {
+    return likes;
+  }
 
-public void setDownvotes(int downvotes) {
-	this.downvotes = downvotes;
-}
+  public void setLikes(int likes) {
+    this.likes = likes;
+  }
 
-public String getImgPath() {
-	return imgPath;
-}
+  public int getDownvotes() {
+    return downvotes;
+  }
 
-public void setImgPath(String imgPath) {
-	this.imgPath = imgPath;
-}
+  public void setDownvotes(int downvotes) {
+    this.downvotes = downvotes;
+  }
+
+  public String getImgPath() {
+    return imgPath;
+  }
+
+  public void setImgPath(String imgPath) {
+    this.imgPath = imgPath;
+  }
 
   public long getId() {
     return id;

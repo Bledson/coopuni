@@ -20,8 +20,8 @@ public class GeolocationDAO implements AbstractDAO<Long, Geolocation> {
   }
 
   @Override
-  public void retrieve(Long id) {
-
+  public Geolocation retrieve(Long id) {
+    return null;
   }
 
   @Override

@@ -20,8 +20,8 @@ public class CommentDAO implements AbstractDAO<Long, Comment> {
   }
 
   @Override
-  public void retrieve(Long id) {
-
+  public Comment retrieve(Long id) {
+    return null;
   }
 
   @Override

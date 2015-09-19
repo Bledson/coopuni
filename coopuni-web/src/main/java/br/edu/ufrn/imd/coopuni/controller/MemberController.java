@@ -13,7 +13,7 @@ import javax.inject.Named;
 
 @Model
 public class MemberController {
-	
+
   @Inject
   private FacesContext facesContext;
 

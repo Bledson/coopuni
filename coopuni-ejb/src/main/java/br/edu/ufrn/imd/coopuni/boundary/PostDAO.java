@@ -9,17 +9,17 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 public class PostDAO implements AbstractDAO<Long, Post> {
+  StaticPosts posts;
   @Inject
   private EntityManager em;
-  StaticPosts posts;
-  
+
   public PostDAO() {
-	  posts = new StaticPosts();
+    posts = new StaticPosts();
   }
 
   @Override
   public void create(Post entity) {
-	  posts.setPosts(entity);	  
+    em.persist(entity);
   }
 
   @Override
@@ -28,8 +28,8 @@ public class PostDAO implements AbstractDAO<Long, Post> {
   }
 
   @Override
-  public void retrieve(Long id) {
-
+  public Post retrieve(Long id) {
+    return null;
   }
 
   @Override
@@ -37,7 +37,7 @@ public class PostDAO implements AbstractDAO<Long, Post> {
 
   }
 
-  public List<Post> getAll() {    
+  public List<Post> getAll() {
     return posts.getAll();
   }
 

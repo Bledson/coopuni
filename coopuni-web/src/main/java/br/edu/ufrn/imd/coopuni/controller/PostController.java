@@ -1,7 +1,6 @@
 package br.edu.ufrn.imd.coopuni.controller;
 
 import br.edu.ufrn.imd.coopuni.model.Geolocation;
-import br.edu.ufrn.imd.coopuni.model.Member;
 import br.edu.ufrn.imd.coopuni.model.Post;
 import br.edu.ufrn.imd.coopuni.service.PostService;
 
@@ -21,6 +20,18 @@ public class PostController {
   @Inject
   private PostService postService;
 
+  private Geolocation geolocation;
+
+  public Geolocation getGeolocation() {
+    return geolocation;
+  }
+
+  public void setGeolocation(Geolocation geolocation) {
+    this.geolocation = geolocation;
+  }
+
+  private Post post;
+
   private List<Post> posts;
 
   public List<Post> getPosts() {
@@ -30,8 +41,6 @@ public class PostController {
   public void setPosts(List<Post> posts) {
     this.posts = posts;
   }
-  
-  private Post post;
 
   public Post getPost() {
     return post;
@@ -40,19 +49,19 @@ public class PostController {
   public void setPost(Post post) {
     this.post = post;
   }
-  
 
   @PostConstruct
   public void initNewPost() {
     post = new Post();
-    post.setGeolocation(new Geolocation());
+    geolocation = new Geolocation();
   }
-  
-public String register() throws Exception {
-    try {      
+
+  public String register() throws Exception {
+    try {
+      post.setGeolocation(geolocation);
       postService.register(post);
       facesContext.addMessage(null,
-          new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));  
+          new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));
       initNewPost();
       return "success";
     } catch (Exception e) {
@@ -75,7 +84,7 @@ public String register() throws Exception {
     return null;
   }
 
-  
+
   public void votar() {
     FacesContext fc = FacesContext.getCurrentInstance();
     String vote = this.getVoteParam(fc);
@@ -99,7 +108,6 @@ public String register() throws Exception {
         fc.getExternalContext().getRequestParameterMap();
     return params.get("post_id");
   }
-  
-  
-  
+
+
 }

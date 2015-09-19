@@ -24,12 +24,12 @@ public class Member implements Serializable {
   private String email;
 
   @NotEmpty
-  @Pattern(regexp = "[A-Za-z ]*", message = "Precisa conter apenas letras e espaços")
+  @Pattern(regexp = "[A-Za-z]*", message = "Precisa conter apenas letras")
   @Size(min = 5, max = 30)
   private String username;
 
   @NotEmpty
-  @Pattern(regexp = "[0-9A-Za-z]*", message = "Precisa conter apenas letras e espaços")
+  @Pattern(regexp = "[0-9A-Za-z]*", message = "Precisa conter apenas letras e números")
   @Size(min = 5, max = 60)
   private String password;
 
@@ -46,19 +46,19 @@ public class Member implements Serializable {
 
   @OneToMany(mappedBy = "member")
   private Collection<Post> postCollection;
-  
+
   @Column(name = "img_path")
   private String imgPath;
-  
+
   public String getImgPath() {
-	return imgPath;
-}
+    return imgPath;
+  }
 
-public void setImgPath(String imgPath) {
-	this.imgPath = imgPath;
-}
+  public void setImgPath(String imgPath) {
+    this.imgPath = imgPath;
+  }
 
-public long getId() {
+  public long getId() {
     return id;
   }
 
