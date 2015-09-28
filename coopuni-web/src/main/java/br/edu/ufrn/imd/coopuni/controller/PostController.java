@@ -1,113 +1,129 @@
 package br.edu.ufrn.imd.coopuni.controller;
 
-import br.edu.ufrn.imd.coopuni.model.Geolocation;
-import br.edu.ufrn.imd.coopuni.model.Post;
-import br.edu.ufrn.imd.coopuni.service.PostService;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import java.util.List;
-import java.util.Map;
+
+import br.edu.ufrn.imd.coopuni.boundary.AreaDAO;
+import br.edu.ufrn.imd.coopuni.model.Area;
+import br.edu.ufrn.imd.coopuni.model.Geolocation;
+import br.edu.ufrn.imd.coopuni.model.Member;
+import br.edu.ufrn.imd.coopuni.model.Post;
+import br.edu.ufrn.imd.coopuni.service.PostService;
 
 @Model
 public class PostController {
-  @Inject
-  private FacesContext facesContext;
 
-  @Inject
-  private PostService postService;
+	private List<Area> areas;
 
-  private Geolocation geolocation;
+	@Inject
+	private FacesContext facesContext;
 
-  public Geolocation getGeolocation() {
-    return geolocation;
-  }
+	@Inject
+	private PostService postService;
 
-  public void setGeolocation(Geolocation geolocation) {
-    this.geolocation = geolocation;
-  }
+	private Geolocation geolocation;
 
-  private Post post;
+	private Post post;
 
-  private List<Post> posts;
+	private List<Post> posts;
 
-  public List<Post> getPosts() {
-    return posts;
-  }
+	public Geolocation getGeolocation() {
+		return geolocation;
+	}
 
-  public void setPosts(List<Post> posts) {
-    this.posts = posts;
-  }
+	public void setGeolocation(Geolocation geolocation) {
+		this.geolocation = geolocation;
+	}
 
-  public Post getPost() {
-    return post;
-  }
+	public List<Area> getArea() {
+		AreaDAO areas = AreaDAO.getInstance();
+		return areas.getAllEntries();
+	}
 
-  public void setPost(Post post) {
-    this.post = post;
-  }
+	public List<Post> getPosts() {
+		return posts;
+	}
 
-  @PostConstruct
-  public void initNewPost() {
-    post = new Post();
-    geolocation = new Geolocation();
-  }
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
 
-  public String register() throws Exception {
-    try {
-      post.setGeolocation(geolocation);
-      postService.register(post);
-      facesContext.addMessage(null,
-          new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));
-      initNewPost();
-      return "success";
-    } catch (Exception e) {
-//	      String errorMessage = getRootErrorMessage(e);
-//	      FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registro sem sucesso");
-//	      facesContext.addMessage(null, m);
-    }
-    return null;
-  }
+	public Post getPost() {
+		return post;
+	}
 
-  public List<Post> getAllPost() throws Exception {
-    try {
-      posts = postService.getAll();
-      return posts;
-    } catch (Exception e) {
-//			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, 
-//					"Houve um erro ao tentar buscar as publicações");
-//		    facesContext.addMessage(null, m);
-    }
-    return null;
-  }
+	public void setPost(Post post) {
+		this.post = post;
+	}
 
+	@PostConstruct
+	public void initNewPost() {
+		post = new Post();
+		geolocation = new Geolocation();
+	}
 
-  public void votar() {
-    FacesContext fc = FacesContext.getCurrentInstance();
-    String vote = this.getVoteParam(fc);
-    String post_id = this.getPostIdParam(fc);
-    Post post = postService.getPostById(Integer.parseInt(post_id));
-    if (vote.equals("up")) {
-      post.setLikes(post.getLikes() + 1);
-    } else if (vote.equals("down")) {
-      post.setDownvotes(post.getDownvotes() + 1);
-    }
-  }
+	public String register() throws Exception {
+		try {
+			post.setGeolocation(null);
+			Member user = new Member();
+			user.setId(2);
+			user.setEmail("and@gmail.com");
+			user.setPassword("586865");
+			post.setMember(user);
+			post.setArea(null);
+			postService.register(post);
+			facesContext.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));
+			initNewPost();
+			return "success";
+		} catch (Exception e) {
+			String errorMessage = getRootErrorMessage(e);
+			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registro sem sucesso");
+			facesContext.addMessage(null, m);
+		}
+		return null;
+	}
 
-  public String getVoteParam(FacesContext fc) {
-    Map<String, String> params =
-        fc.getExternalContext().getRequestParameterMap();
-    return params.get("vote");
-  }
+	// public void votar() {
+	// FacesContext fc = FacesContext.getCurrentInstance();
+	// String vote = this.getVoteParam(fc);
+	// String post_id = this.getPostIdParam(fc);
+	// Post post = postService.getPostById(Integer.parseInt(post_id));
+	// if (vote.equals("up")) {
+	// post.setLikes(post.getLikes() + 1);
+	// } else if (vote.equals("down")) {
+	// post.setDownvotes(post.getDownvotes() + 1);
+	// }
+	// }
 
-  public String getPostIdParam(FacesContext fc) {
-    Map<String, String> params =
-        fc.getExternalContext().getRequestParameterMap();
-    return params.get("post_id");
-  }
+	public String getVoteParam(FacesContext fc) {
+		Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+		return params.get("vote");
+	}
 
+	public String getPostIdParam(FacesContext fc) {
+		Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+		return params.get("post_id");
+	}
+
+	private String getRootErrorMessage(Exception e) {
+		String errorMessage = "Registro falhou. Veja o log do servidor para mais informações";
+		if (e == null) {
+			return errorMessage;
+		}
+
+		Throwable t = e;
+		while (t != null) {
+			errorMessage = t.getLocalizedMessage();
+			t = t.getCause();
+		}
+		return errorMessage;
+	}
 
 }

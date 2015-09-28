@@ -19,16 +19,11 @@ public class PostService {
     postDAO.create(post);
   }
 
-  public List<Post> getAll() {
-    return postDAO.getAll();
-  }
+ 
 
   public List<Post> getPostsByUser(Member member) {
     return null;
   }
 
-  public Post getPostById(int id) {
-    return postDAO.getPostById(id);
-  }
-
+ 
 }

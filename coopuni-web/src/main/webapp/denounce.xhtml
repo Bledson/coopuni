@@ -13,7 +13,10 @@
         <f:selectItem itemValue="1" itemLabel="Denúncia"/>
         <f:selectItem itemValue="2" itemLabel="Proposta"/>
       </h:selectOneMenu>
-      <h:inputText value="#{postController.geolocation.description}"/>
+      
+      <h:selectOneMenu value="#{postController.area}">
+      
+      </h:selectOneMenu>
       <h:selectOneMenu value="#{postController.post.category}">
         <f:selectItem itemValue="1" itemLabel="Bla bla"/>
         <f:selectItem itemValue="2" itemLabel="HUE HUE"/>

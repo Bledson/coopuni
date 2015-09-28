@@ -13,135 +13,145 @@ import java.util.Date;
 @Table(name = "posts")
 @XmlRootElement
 public class Post implements Serializable {
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Id
-  private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private long id;
 
-  @NotEmpty
-  private String category;
+	@NotEmpty
+	private String category;
 
-  @NotEmpty
-  @Column(name = "post_type")
-  private String type;
+	@Column(name = "post_type")
+	private String type;
 
-  @Size(max = 250)
-  private String description;
+	@Size(max = 250)
+	private String description;
 
-  @Column(name = "created_at")
-  @Temporal(TemporalType.DATE)
-  private Date createdAt;
+	@Column(name = "created_at")
+	@Temporal(TemporalType.DATE)
+	private Date createdAt;
 
-  @Column(name = "updated_at")
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date updatedAt;
+	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt;
 
-  @JoinColumn(name = "geolocation_id", referencedColumnName = "id")
-  @OneToOne(cascade = CascadeType.ALL)
-  private Geolocation geolocation;
+	@JoinColumn(name = "geolocation_id", referencedColumnName = "id")
+	@OneToOne(cascade = CascadeType.ALL)
+	private Geolocation geolocation;
 
-  @OneToMany(mappedBy = "post")
-  private Collection<Comment> commentCollection;
+	@JoinColumn(name = "area_id", referencedColumnName = "id")
+	@OneToOne(cascade = CascadeType.ALL)
+	private Area area;
+	
+	@OneToMany(mappedBy = "post")
+	private Collection<Comment> commentCollection;
 
-  @JoinColumn(name = "member_id", referencedColumnName = "id")
-  @ManyToOne(optional = false)
-  private Member member;
+	@JoinColumn(name = "member_id", referencedColumnName = "id")
+	@ManyToOne(optional = false)
+	private Member member;
 
-  @Column(name = "img_path")
-  private String imgPath;
+	@Column(name = "img_path")
+	private String imgPath;
 
-  private int likes;
+	private int likes;
 
-  private int downvotes;
+	private int downvotes;
 
+	public int getLikes() {
+		return likes;
+	}
 
-  public int getLikes() {
-    return likes;
-  }
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
 
-  public void setLikes(int likes) {
-    this.likes = likes;
-  }
+	public int getDownvotes() {
+		return downvotes;
+	}
 
-  public int getDownvotes() {
-    return downvotes;
-  }
+	public void setDownvotes(int downvotes) {
+		this.downvotes = downvotes;
+	}
 
-  public void setDownvotes(int downvotes) {
-    this.downvotes = downvotes;
-  }
+	public String getImgPath() {
+		return imgPath;
+	}
 
-  public String getImgPath() {
-    return imgPath;
-  }
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 
-  public void setImgPath(String imgPath) {
-    this.imgPath = imgPath;
-  }
+	public long getId() {
+		return id;
+	}
 
-  public long getId() {
-    return id;
-  }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-  public void setId(long id) {
-    this.id = id;
-  }
+	public String getCategory() {
+		return category;
+	}
 
-  public String getCategory() {
-    return category;
-  }
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-  public void setCategory(String category) {
-    this.category = category;
-  }
+	public String getType() {
+		return type;
+	}
 
-  public String getType() {
-    return type;
-  }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-  public void setType(String type) {
-    this.type = type;
-  }
+	public String getDescription() {
+		return description;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public Date getCreatedAt() {
+		return createdAt;
+	}
 
-  public Date getCreatedAt() {
-    return createdAt;
-  }
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
-  public void setCreatedAt(Date createdAt) {
-    this.createdAt = createdAt;
-  }
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
 
-  public Date getUpdatedAt() {
-    return updatedAt;
-  }
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
-  public void setUpdatedAt(Date updatedAt) {
-    this.updatedAt = updatedAt;
-  }
+	public Geolocation getGeolocation() {
+		return geolocation;
+	}
 
-  public Geolocation getGeolocation() {
-    return geolocation;
-  }
+	public void setGeolocation(Geolocation geolocation) {
+		this.geolocation = geolocation;
+	}
 
-  public void setGeolocation(Geolocation geolocation) {
-    this.geolocation = geolocation;
-  }
+	public Member getMember() {
+		return member;
+	}
 
+	public void setMember(Member member) {
+		this.member = member;
+	}
 
-  public Member getMember() {
-    return member;
-  }
+	public Area getArea() {
+		return area;
+	}
 
-  public void setMember(Member member) {
-    this.member = member;
-  }
+	public void setArea(Area area) {
+		this.area = area;
+	}
 
+	
 
 }
