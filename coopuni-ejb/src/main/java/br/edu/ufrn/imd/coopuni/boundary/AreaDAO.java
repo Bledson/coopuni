@@ -2,6 +2,7 @@ package br.edu.ufrn.imd.coopuni.boundary;
 
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -10,19 +11,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import br.edu.ufrn.imd.coopuni.model.Area;
+import br.edu.ufrn.imd.coopuni.model.Member;
 
+@ApplicationScoped  
 public class AreaDAO implements AbstractDAO<Long,  Area> {
 
 	@Inject
 	private EntityManager em;
 	
-	private static final AreaDAO instance = new AreaDAO();
-	
-	public static AreaDAO getInstance() {
-		return instance;
-	}
-	
-	private AreaDAO() {}
 	
 	@Override
 	public void create(Area entity) throws Exception {
@@ -45,12 +41,12 @@ public class AreaDAO implements AbstractDAO<Long,  Area> {
 	}
 
 	public List<Area> getAllEntries() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Area> cq = cb.createQuery(Area.class);
-        Root<Area> rootEntry = cq.from(Area.class);
-        CriteriaQuery<Area> all = cq.select(rootEntry);
-        TypedQuery<Area> allQuery = em.createQuery(all);
-        return allQuery.getResultList();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Area> c = cb.createQuery(Area.class);
+		Root<Area> member = c.from(Area.class);
+		c.select(member);
+		List<Area> result = em.createQuery(c).getResultList();
+		return result;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package br.edu.ufrn.imd.coopuni.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,9 +42,12 @@ public class PostController {
 		this.geolocation = geolocation;
 	}
 
-	public List<Area> getArea() {
-		AreaDAO areas = AreaDAO.getInstance();
-		return areas.getAllEntries();
+	public List<Area> getAreas() {		
+		return areas;
+	}
+
+	public void setAreas(List<Area> areas) {		
+		this.areas = areas;
 	}
 
 	public List<Post> getPosts() {
@@ -66,6 +70,7 @@ public class PostController {
 	public void initNewPost() {
 		post = new Post();
 		geolocation = new Geolocation();
+		areas = postService.getPostAreas();
 	}
 
 	public String register() throws Exception {
@@ -76,7 +81,6 @@ public class PostController {
 			user.setEmail("and@gmail.com");
 			user.setPassword("586865");
 			post.setMember(user);
-			post.setArea(null);
 			postService.register(post);
 			facesContext.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));

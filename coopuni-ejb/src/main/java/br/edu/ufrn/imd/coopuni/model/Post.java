@@ -39,7 +39,7 @@ public class Post implements Serializable {
 	private Geolocation geolocation;
 
 	@JoinColumn(name = "area_id", referencedColumnName = "id")
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Area area;
 	
 	@OneToMany(mappedBy = "post")

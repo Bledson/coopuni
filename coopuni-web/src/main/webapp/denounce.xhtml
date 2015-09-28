@@ -9,15 +9,18 @@
   <ui:define name="content">
     <h:form>
       <h:inputText value="#{postController.post.description}"/>
+      
       <h:selectOneMenu value="#{postController.post.type}">
         <f:selectItem itemValue="1" itemLabel="Denúncia"/>
         <f:selectItem itemValue="2" itemLabel="Proposta"/>
       </h:selectOneMenu>
       
-      <h:selectOneMenu value="#{postController.area}">
-      
+      <h:selectOneMenu value="#{postController.post.area}" id="select_area" >
+      		<f:converter binding="#{areaConverter}" />      		
+      		<f:selectItems  value="#{postController.areas}" var="item" itemLabel="#{item.description}" itemValue="#{item}"/>
       </h:selectOneMenu>
-      <h:selectOneMenu value="#{postController.post.category}">
+      
+      <h:selectOneMenu value="#{postController.post.category}" >
         <f:selectItem itemValue="1" itemLabel="Bla bla"/>
         <f:selectItem itemValue="2" itemLabel="HUE HUE"/>
       </h:selectOneMenu>
