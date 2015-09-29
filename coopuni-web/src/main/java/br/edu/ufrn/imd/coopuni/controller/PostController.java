@@ -8,27 +8,30 @@ import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.Part;
 
 import br.edu.ufrn.imd.coopuni.model.Area;
 import br.edu.ufrn.imd.coopuni.model.Geolocation;
 import br.edu.ufrn.imd.coopuni.model.Member;
 import br.edu.ufrn.imd.coopuni.model.Post;
+import br.edu.ufrn.imd.coopuni.service.MemberService;
 import br.edu.ufrn.imd.coopuni.service.PostService;
 
 @Model
-public class PostController {
+public class PostController extends CController {
 
 	private List<Area> areas;
 
-	private Member user;
-	
-	
-	
+	private Part img_file;
+
 	@Inject
 	private FacesContext facesContext;
 
 	@Inject
 	private PostService postService;
+
+	@Inject
+	private MemberService memberService;
 
 	private Geolocation geolocation;
 
@@ -44,16 +47,15 @@ public class PostController {
 		this.geolocation = geolocation;
 	}
 
-	public List<Area> getAreas() {		
+	public List<Area> getAreas() {
 		return areas;
 	}
 
-	public void setAreas(List<Area> areas) {		
+	public void setAreas(List<Area> areas) {
 		this.areas = areas;
 	}
 
 	public List<Post> getPosts() {
-		posts = postService.getPostsByUser(user);
 		return posts;
 	}
 
@@ -69,71 +71,92 @@ public class PostController {
 		this.post = post;
 	}
 
+	public Part getImg_file() {
+		return img_file;
+	}
+
+	public void setImg_file(Part img_file) {
+		this.img_file = img_file;
+	}
+
 	@PostConstruct
 	public void initNewPost() {
 		post = new Post();
 		geolocation = new Geolocation();
 		areas = postService.getPostAreas();
-		user = new Member();
-		user.setId(2);
-		user.setEmail("and@gmail.com");
-		user.setPassword("586865");
+		posts = postService.getPostsByUserId(1);
+		post.setMember(memberService.retrive(1));
 	}
 
 	public String register() throws Exception {
 		try {
-			post.setGeolocation(null);			
-			post.setMember(user);
-			postService.register(post);
-			facesContext.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));
+			post.setGeolocation(null);
+			upload();
+			postService.register(post);			
 			initNewPost();
+			printSuccessMsg(facesContext);
 			return "success";
 		} catch (Exception e) {
-			String errorMessage = getRootErrorMessage(e);
-			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registro sem sucesso");
-			facesContext.addMessage(null, m);
+			printErrorMsg(e, facesContext);
 		}
 		return null;
 	}
 
-	// public void votar() {
-	// FacesContext fc = FacesContext.getCurrentInstance();
-	// String vote = this.getVoteParam(fc);
-	// String post_id = this.getPostIdParam(fc);
-	// Post post = postService.getPostById(Integer.parseInt(post_id));
-	// if (vote.equals("up")) {
-	// post.setLikes(post.getLikes() + 1);
-	// } else if (vote.equals("down")) {
-	// post.setDownvotes(post.getDownvotes() + 1);
-	// }
-	// }
+	public String votar() {
+		try {
+			String vote = this.getVoteParam();
+			long postId = Long.parseLong(this.getPostIdParam());		
+			postService.updateVote(vote, postId);			
+			refreshPage(facesContext);
+			printSuccessMsg(facesContext);
+			return "voted";
+		}catch(Exception e) {
+			printErrorMsg(e, facesContext);
+		}
+		return null;
+	}
 
-	public String getVoteParam(FacesContext fc) {
-		Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+	private String getVoteParam() {
+		Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
 		return params.get("vote");
 	}
 
-	public String getPostIdParam(FacesContext fc) {
-		Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+	private String getPostIdParam() {
+		Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
 		return params.get("post_id");
 	}
 
-	private String getRootErrorMessage(Exception e) {
-		String errorMessage = "Registro falhou. Veja o log do servidor para mais informações";
-		if (e == null) {
-			return errorMessage;
-		}
+	/*
+	 * private void upload() throws IOException {
+	 * 
+	 * BufferedInputStream bis = null; BufferedOutputStream bos = null; try {
+	 * String filename = getFilename(img_file); File file = new
+	 * File("/coopuni/images/"+filename); bis = new
+	 * BufferedInputStream(img_file.getInputStream()); FileOutputStream fos =
+	 * new FileOutputStream(file); bos = new BufferedOutputStream(fos); int x;
+	 * while((x = bis.read())!= -1){ bos.write(x); }
+	 * post.setImgPath(file.getPath()); } catch (IOException ex) {
+	 * Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null,
+	 * ex); } finally{ try { bos.flush(); bos.close(); bis.close(); } catch
+	 * (IOException ex) {
+	 * Logger.getLogger(PostController.class.getName()).log(Level.SEVERE, null,
+	 * ex); } } }
+	 */
 
-		Throwable t = e;
-		while (t != null) {
-			errorMessage = t.getLocalizedMessage();
-			t = t.getCause();
-		}
-		return errorMessage;
+	private void upload() {
+		String filename = getFilename(img_file);
+		post.setImgPath(filename);
 	}
-	
-	
-	
+
+	private static String getFilename(Part part) {
+		for (String cd : part.getHeader("content-disposition").split(";")) {
+			if (cd.trim().startsWith("filename")) {
+				String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+				return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE
+																													// fix.
+			}
+		}
+		return null;
+	}
 
 }

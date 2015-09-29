@@ -1,4 +1,4 @@
-package br.edu.ufrn.converter;
+package br.edu.ufrn.imd.coopuni.converter;
 
 import javax.enterprise.inject.Model;
 import javax.faces.component.UIComponent;

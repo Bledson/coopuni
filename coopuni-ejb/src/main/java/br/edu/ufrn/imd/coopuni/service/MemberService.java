@@ -25,4 +25,8 @@ public class MemberService {
     memberDAO.create(member);
     memberEventSrc.fire(member);
   }
+  
+  public Member retrive(long id) {
+	  return memberDAO.retrieve(id);
+  }
 }

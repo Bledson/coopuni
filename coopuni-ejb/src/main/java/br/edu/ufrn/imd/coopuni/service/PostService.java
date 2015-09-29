@@ -26,9 +26,16 @@ public class PostService {
 	  return areaService.getAllEntries();
   }
   
-  public List<Post> getPostsByUser(Member member) {
-    return postDAO.getPostsByUser(member);
+  public List<Post> getPostsByUserId(long id) {
+    return postDAO.getPostsByUserId(id);
+  }
+  
+  public Post retrive(long id) {
+	  return postDAO.retrieve(id);
   }
 
+  public void updateVote(String type, long postID)  throws Exception {
+	  postDAO.updateVote(type, postID);
+  }
  
 }
