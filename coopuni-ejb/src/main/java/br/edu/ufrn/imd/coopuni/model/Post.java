@@ -45,7 +45,7 @@ public class Post implements Serializable {
 	@OneToMany(mappedBy = "post")
 	private Collection<Comment> commentCollection;
 
-	@JoinColumn(name = "member_id", referencedColumnName = "id")
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Member member;
 

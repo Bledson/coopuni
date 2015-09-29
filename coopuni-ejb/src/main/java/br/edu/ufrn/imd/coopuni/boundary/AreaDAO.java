@@ -43,8 +43,8 @@ public class AreaDAO implements AbstractDAO<Long,  Area> {
 	public List<Area> getAllEntries() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Area> c = cb.createQuery(Area.class);
-		Root<Area> member = c.from(Area.class);
-		c.select(member);
+		Root<Area> area = c.from(Area.class);
+		c.select(area);
 		List<Area> result = em.createQuery(c).getResultList();
 		return result;
 	}

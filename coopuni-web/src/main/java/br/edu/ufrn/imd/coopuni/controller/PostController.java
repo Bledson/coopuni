@@ -1,6 +1,5 @@
 package br.edu.ufrn.imd.coopuni.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import br.edu.ufrn.imd.coopuni.boundary.AreaDAO;
 import br.edu.ufrn.imd.coopuni.model.Area;
 import br.edu.ufrn.imd.coopuni.model.Geolocation;
 import br.edu.ufrn.imd.coopuni.model.Member;
@@ -22,6 +20,10 @@ public class PostController {
 
 	private List<Area> areas;
 
+	private Member user;
+	
+	
+	
 	@Inject
 	private FacesContext facesContext;
 
@@ -51,6 +53,7 @@ public class PostController {
 	}
 
 	public List<Post> getPosts() {
+		posts = postService.getPostsByUser(user);
 		return posts;
 	}
 
@@ -71,15 +74,15 @@ public class PostController {
 		post = new Post();
 		geolocation = new Geolocation();
 		areas = postService.getPostAreas();
+		user = new Member();
+		user.setId(2);
+		user.setEmail("and@gmail.com");
+		user.setPassword("586865");
 	}
 
 	public String register() throws Exception {
 		try {
-			post.setGeolocation(null);
-			Member user = new Member();
-			user.setId(2);
-			user.setEmail("and@gmail.com");
-			user.setPassword("586865");
+			post.setGeolocation(null);			
 			post.setMember(user);
 			postService.register(post);
 			facesContext.addMessage(null,
@@ -129,5 +132,8 @@ public class PostController {
 		}
 		return errorMessage;
 	}
+	
+	
+	
 
 }
