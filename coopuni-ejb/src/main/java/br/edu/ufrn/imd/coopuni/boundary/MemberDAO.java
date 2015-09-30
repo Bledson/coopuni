@@ -1,15 +1,17 @@
 package br.edu.ufrn.imd.coopuni.boundary;
 
-import br.edu.ufrn.imd.coopuni.model.Member;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
+import br.edu.ufrn.imd.coopuni.model.Member;
 
 public class MemberDAO implements AbstractDAO<Long, Member> {
 	@Inject
@@ -17,9 +19,8 @@ public class MemberDAO implements AbstractDAO<Long, Member> {
 
 	@Override
 	public void create(Member entity) throws NoSuchAlgorithmException {
-		MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-		entity.setPassword(
-				String.format("%32x", new BigInteger(1, messageDigest.digest(entity.getPassword().getBytes()))));
+		String newPassowrd = encryptPassword(entity.getPassword());
+		entity.setPassword(newPassowrd);
 		em.persist(entity);
 	}
 
@@ -53,27 +54,43 @@ public class MemberDAO implements AbstractDAO<Long, Member> {
 	public void update(Member entity) {
 		em.merge(entity);
 	}
-	
+
 	public boolean checkLogin(String username, String password) throws NoSuchAlgorithmException {
 		Member member = retrieveByUsername(username);
-		if(member != null) {
-			if(checkPassword(member, password))
+		if (member != null) {
+			if (checkPassword(member, password))
 				return true;
 		}
 		return false;
 	}
-	
+
 	private boolean checkPassword(Member member, String password) throws NoSuchAlgorithmException {
-		String encryptedPassword = encryptPassword(member);
-		if(member.getPassword().equals(encryptedPassword))
+		String encryptedPassword = encryptPassword(password);
+		if (member.getPassword().equals(encryptedPassword))
 			return true;
-		else return false;
+		else
+			return false;
 	}
-	
-	private String encryptPassword(Member member) throws NoSuchAlgorithmException{
-		MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-		String password = String.format("%32x", new BigInteger(1, messageDigest.digest(member.getPassword().getBytes())));
-		return password;
+
+	private String encryptPassword(String password) throws NoSuchAlgorithmException {
+		MessageDigest mDigest;
+		try {
+			mDigest = MessageDigest.getInstance("MD5");
+			byte[] valorMD5 = mDigest.digest(password.getBytes("UTF-8"));
+			StringBuffer sb = new StringBuffer();
+			for (byte b : valorMD5) {
+				sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));
+			}
+			return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
-	
+
 }
