@@ -1,6 +1,5 @@
 package br.edu.ufrn.imd.coopuni.boundary;
 
-import br.edu.ufrn.imd.coopuni.model.Member;
 import br.edu.ufrn.imd.coopuni.model.Post;
 
 import javax.inject.Inject;
@@ -9,10 +8,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
 
 import java.util.List;
-import java.util.Set;
 
 public class PostDAO implements AbstractDAO<Long, Post> {
 

@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 @Model
-public class MemberController {
+public class MemberController extends CController {
 
   @Inject
   private FacesContext facesContext;
@@ -20,10 +20,11 @@ public class MemberController {
   @Inject
   private MemberService memberRegistration;
 
-  private Member member;
-
   @Named
   @Produces
+  private Member member;
+
+
   public Member getMember() {
     return member;
   }
@@ -37,14 +38,11 @@ public class MemberController {
   public String register() throws Exception {
     try {
       memberRegistration.register(member);
-      facesContext.addMessage(null,
-          new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Registro feito com sucesso"));
+      printSuccessMsg(facesContext);
       initNewMember();
       return "sucess";
     } catch (Exception e) {
-      String errorMessage = getRootErrorMessage(e);
-      FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registro sem sucesso");
-      facesContext.addMessage(null, m);
+      printErrorMsg(e, facesContext);
     }
     return null;
   }
@@ -54,17 +52,5 @@ public class MemberController {
     member = new Member();
   }
 
-  private String getRootErrorMessage(Exception e) {
-    String errorMessage = "Registro falhou. Veja o log do servidor para mais informações";
-    if (e == null) {
-      return errorMessage;
-    }
-
-    Throwable t = e;
-    while (t != null) {
-      errorMessage = t.getLocalizedMessage();
-      t = t.getCause();
-    }
-    return errorMessage;
-  }
+  
 }

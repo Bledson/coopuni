@@ -13,8 +13,7 @@
 			<div id="feed">
 				<ui:repeat value="#{postController.posts}" var="post">
 					<h:form>
-						<h:outputText value="#{post.description}"
-							styleClass="glyphicon glyphicon-map-marker" />
+						<h:outputText value="#{post.description}"/>
 						<h:commandLink action="#{postController.votar}"
 							value=" Apoie #{post.likes}" id="like"
 							styleClass="glyphicon glyphicon-thumbs-up btn btn-small ">

@@ -53,4 +53,27 @@ public class MemberDAO implements AbstractDAO<Long, Member> {
 	public void update(Member entity) {
 		em.merge(entity);
 	}
+	
+	public boolean checkLogin(String username, String password) throws NoSuchAlgorithmException {
+		Member member = retrieveByUsername(username);
+		if(member != null) {
+			if(checkPassword(member, password))
+				return true;
+		}
+		return false;
+	}
+	
+	private boolean checkPassword(Member member, String password) throws NoSuchAlgorithmException {
+		String encryptedPassword = encryptPassword(member);
+		if(member.getPassword().equals(encryptedPassword))
+			return true;
+		else return false;
+	}
+	
+	private String encryptPassword(Member member) throws NoSuchAlgorithmException{
+		MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+		String password = String.format("%32x", new BigInteger(1, messageDigest.digest(member.getPassword().getBytes())));
+		return password;
+	}
+	
 }

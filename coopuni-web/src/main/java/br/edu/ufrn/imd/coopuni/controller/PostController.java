@@ -39,6 +39,11 @@ public class PostController extends CController {
 
 	private List<Post> posts;
 
+	private FacesContext getContext() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        return context;
+    }
+
 	public Geolocation getGeolocation() {
 		return geolocation;
 	}
@@ -94,7 +99,7 @@ public class PostController extends CController {
 			upload();
 			postService.register(post);			
 			initNewPost();
-			printSuccessMsg(facesContext);
+				
 			return "success";
 		} catch (Exception e) {
 			printErrorMsg(e, facesContext);
