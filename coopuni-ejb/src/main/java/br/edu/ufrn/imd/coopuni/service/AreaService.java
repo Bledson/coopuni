@@ -26,4 +26,8 @@ public class AreaService {
 		return areaDAO.getAllEntries();
 	}
 	
+	public Area retrieve(long id) {
+		return areaDAO.retrieve(id);
+	}
+	
 }

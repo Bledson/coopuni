@@ -38,4 +38,7 @@ public class PostService {
 	  postDAO.updateVote(type, postID);
   }
  
+  public List<Post> getAllPosts() {
+	  return postDAO.getAllPosts();
+  }
 }

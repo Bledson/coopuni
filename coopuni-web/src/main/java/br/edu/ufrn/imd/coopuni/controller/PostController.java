@@ -5,15 +5,14 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
 
 import br.edu.ufrn.imd.coopuni.model.Area;
 import br.edu.ufrn.imd.coopuni.model.Geolocation;
-import br.edu.ufrn.imd.coopuni.model.Member;
 import br.edu.ufrn.imd.coopuni.model.Post;
+import br.edu.ufrn.imd.coopuni.service.AreaService;
 import br.edu.ufrn.imd.coopuni.service.MemberService;
 import br.edu.ufrn.imd.coopuni.service.PostService;
 
@@ -38,11 +37,6 @@ public class PostController extends CController {
 	private Post post;
 
 	private List<Post> posts;
-
-	private FacesContext getContext() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        return context;
-    }
 
 	public Geolocation getGeolocation() {
 		return geolocation;
@@ -89,7 +83,7 @@ public class PostController extends CController {
 		post = new Post();
 		geolocation = new Geolocation();
 		areas = postService.getPostAreas();
-		posts = postService.getPostsByUserId(1);
+		posts = postService.getAllPosts();		
 		post.setMember(memberService.retrive(1));
 	}
 
@@ -97,9 +91,8 @@ public class PostController extends CController {
 		try {
 			post.setGeolocation(null);
 			upload();
-			postService.register(post);			
-			initNewPost();
-				
+			postService.register(post);					
+			initNewPost();				
 			return "success";
 		} catch (Exception e) {
 			printErrorMsg(e, facesContext);
@@ -163,5 +156,5 @@ public class PostController extends CController {
 		}
 		return null;
 	}
-
+		
 }
