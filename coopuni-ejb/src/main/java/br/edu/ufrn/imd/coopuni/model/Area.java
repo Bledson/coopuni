@@ -1,58 +1,45 @@
 package br.edu.ufrn.imd.coopuni.model;
 
-import java.io.Serializable;
-import java.util.Objects;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "areas")
 @XmlRootElement
 public class Area implements Serializable {
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	private Long id;
-	
-	private String description;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  private long id;
 
-	public String getDescription() {
-		return description;
-	}
+  private String name;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  @OneToMany(mappedBy = "area")
+  private Collection<Geolocation> geolocations;
 
-	public long getId() {
-		return id;
-	}
+  public long getId() {
+    return id;
+  }
 
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	 @Override
-	    public boolean equals(Object other) {
-	        return (other != null && getClass() == other.getClass() && id != null)
-	            ? id.equals(((Area) other).id)
-	            : (other == this);
-	    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-	    @Override
-	    public int hashCode() {
-	        return (id != null) 
-	            ? (getClass().hashCode() + id.hashCode())
-	            : super.hashCode();
-	    }
+  public String getName() {
+    return name;
+  }
 
-	
-	
-	
-	
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Collection<Geolocation> getGeolocations() {
+    return geolocations;
+  }
+
+  public void setGeolocations(Collection<Geolocation> geolocations) {
+    this.geolocations = geolocations;
+  }
 }

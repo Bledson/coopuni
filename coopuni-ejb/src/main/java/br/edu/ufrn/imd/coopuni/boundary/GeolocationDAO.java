@@ -11,7 +11,7 @@ public class GeolocationDAO implements AbstractDAO<Long, Geolocation> {
 
   @Override
   public void create(Geolocation entity) {
-
+    em.persist(entity);
   }
 
   @Override
@@ -20,12 +20,12 @@ public class GeolocationDAO implements AbstractDAO<Long, Geolocation> {
   }
 
   @Override
-  public Geolocation retrieve(Long id) {
-    return null;
+  public Geolocation find(Long id) {
+    return em.find(Geolocation.class, id);
   }
 
   @Override
   public void update(Geolocation entity) {
-
+    em.merge(entity);
   }
 }

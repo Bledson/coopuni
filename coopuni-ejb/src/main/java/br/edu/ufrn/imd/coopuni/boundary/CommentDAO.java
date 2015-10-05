@@ -20,12 +20,12 @@ public class CommentDAO implements AbstractDAO<Long, Comment> {
   }
 
   @Override
-  public Comment retrieve(Long id) {
-    return null;
+  public Comment find(Long id) {
+    return em.find(Comment.class, id);
   }
 
   @Override
   public void update(Comment entity) {
-
+    em.merge(entity);
   }
 }

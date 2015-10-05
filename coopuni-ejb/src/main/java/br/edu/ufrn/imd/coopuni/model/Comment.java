@@ -3,7 +3,6 @@ package br.edu.ufrn.imd.coopuni.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,7 +16,6 @@ public class Comment implements Serializable {
   private long id;
 
   @NotEmpty
-  @Size(max = 250)
   private String content;
 
   @Column(name = "created_at")
@@ -28,11 +26,59 @@ public class Comment implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
 
+  @JoinColumn(name = "member_id", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  private Member member;
+
   @JoinColumn(name = "post_id", referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Post post;
 
-  @JoinColumn(name = "member_id", referencedColumnName = "id")
-  @ManyToOne(optional = false)
-  private Member member;
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Date getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  public Member getMember() {
+    return member;
+  }
+
+  public void setMember(Member member) {
+    this.member = member;
+  }
+
+  public Post getPost() {
+    return post;
+  }
+
+  public void setPost(Post post) {
+    this.post = post;
+  }
 }

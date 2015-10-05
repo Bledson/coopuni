@@ -33,6 +33,8 @@ public class Member implements Serializable {
   @Size(min = 5, max = 60)
   private String password;
 
+  private boolean admin;
+
   @Column(name = "created_at")
   @Temporal(TemporalType.DATE)
   private Date createdAt;
@@ -42,21 +44,14 @@ public class Member implements Serializable {
   private Date updatedAt;
 
   @OneToMany(mappedBy = "member")
-  private Collection<Comment> commentCollection;
+  private Collection<Comment> comments;
+
+  @OneToOne
+  @PrimaryKeyJoinColumn
+  private Image image;
 
   @OneToMany(mappedBy = "member")
-  private Collection<Post> postCollection;
-
-  @Column(name = "img_path")
-  private String imgPath;
-
-  public String getImgPath() {
-    return imgPath;
-  }
-
-  public void setImgPath(String imgPath) {
-    this.imgPath = imgPath;
-  }
+  private Collection<Post> posts;
 
   public long getId() {
     return id;
@@ -90,6 +85,14 @@ public class Member implements Serializable {
     this.password = password;
   }
 
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  public void setAdmin(boolean admin) {
+    this.admin = admin;
+  }
+
   public Date getCreatedAt() {
     return createdAt;
   }
@@ -104,5 +107,29 @@ public class Member implements Serializable {
 
   public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public Collection<Comment> getComments() {
+    return comments;
+  }
+
+  public void setComments(Collection<Comment> comments) {
+    this.comments = comments;
+  }
+
+  public Image getImage() {
+    return image;
+  }
+
+  public void setImage(Image image) {
+    this.image = image;
+  }
+
+  public Collection<Post> getPosts() {
+    return posts;
+  }
+
+  public void setPosts(Collection<Post> posts) {
+    this.posts = posts;
   }
 }

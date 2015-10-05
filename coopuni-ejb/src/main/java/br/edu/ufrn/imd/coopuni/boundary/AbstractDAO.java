@@ -5,7 +5,7 @@ public interface AbstractDAO<K, E> {
 
   void delete(K id);
 
-  E retrieve(K id);
+  E find(K id);
 
   void update(E entity);
 }

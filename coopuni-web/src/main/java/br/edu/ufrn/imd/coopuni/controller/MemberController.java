@@ -6,7 +6,6 @@ import br.edu.ufrn.imd.coopuni.service.MemberService;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -35,22 +34,18 @@ public class MemberController extends CController {
   }
 
 
-  public String register() throws Exception {
+  public void register() throws Exception {
     try {
       memberRegistration.register(member);
       printSuccessMsg(facesContext);
       initNewMember();
-      return "sucess";
     } catch (Exception e) {
       printErrorMsg(e, facesContext);
     }
-    return null;
   }
 
   @PostConstruct
   public void initNewMember() {
     member = new Member();
   }
-
-  
 }

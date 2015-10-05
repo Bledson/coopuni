@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,9 +24,6 @@ public class Geolocation implements Serializable {
   @NotEmpty
   private Float longitude;
 
-  @Size(max = 100)
-  private String description;
-
   @Column(name = "created_at")
   @Temporal(TemporalType.DATE)
   private Date createdAt;
@@ -36,30 +32,66 @@ public class Geolocation implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
 
+  @JoinColumn(name = "area_id", referencedColumnName = "id")
+  @ManyToOne
+  private Area area;
+
   @OneToOne(mappedBy = "geolocation")
   private Post post;
 
-  public float getLatitude() {
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public Float getLatitude() {
     return latitude;
   }
 
-  public void setLatitude(float latitude) {
+  public void setLatitude(Float latitude) {
     this.latitude = latitude;
   }
 
-  public float getLongitude() {
+  public Float getLongitude() {
     return longitude;
   }
 
-  public void setLongitude(float longitude) {
+  public void setLongitude(Float longitude) {
     this.longitude = longitude;
   }
 
-  public String getDescription() {
-    return description;
+  public Date getCreatedAt() {
+    return createdAt;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Date getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  public Area getArea() {
+    return area;
+  }
+
+  public void setArea(Area area) {
+    this.area = area;
+  }
+
+  public Post getPost() {
+    return post;
+  }
+
+  public void setPost(Post post) {
+    this.post = post;
   }
 }

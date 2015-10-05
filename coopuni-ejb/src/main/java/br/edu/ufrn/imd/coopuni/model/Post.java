@@ -3,7 +3,6 @@ package br.edu.ufrn.imd.coopuni.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Collection;
@@ -13,145 +12,149 @@ import java.util.Date;
 @Table(name = "posts")
 @XmlRootElement
 public class Post implements Serializable {
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	private long id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  private long id;
 
-	@NotEmpty
-	private String category;
+  private String type;
 
-	@Column(name = "post_type")
-	private String type;
+  @NotEmpty
+  private String category;
 
-	@Size(max = 250)
-	private String description;
+  private String description;
 
-	@Column(name = "created_at")
-	@Temporal(TemporalType.DATE)
-	private Date createdAt;
+  private int likes;
 
-	@Column(name = "updated_at")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updatedAt;
+  private int downvotes;
 
-	@JoinColumn(name = "geolocation_id", referencedColumnName = "id")
-	@OneToOne(cascade = CascadeType.ALL)
-	private Geolocation geolocation;
+  @Column(name = "created_at")
+  @Temporal(TemporalType.DATE)
+  private Date createdAt;
 
-	@JoinColumn(name = "area_id", referencedColumnName = "id")
-	@OneToOne
-	private Area area;
-	
-	@OneToMany(mappedBy = "post")
-	private Collection<Comment> commentCollection;
+  @Column(name = "updated_at")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date updatedAt;
 
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	@ManyToOne(optional = false)
-	private Member member;
+  @JoinColumn(name = "area_id", referencedColumnName = "id")
+  @OneToOne
+  private Area area;
 
-	@Column(name = "img_path")
-	private String imgPath;
+  @OneToOne
+  @PrimaryKeyJoinColumn
+  private Image image;
 
-	private int likes;
+  @OneToMany(mappedBy = "post")
+  private Collection<Comment> comments;
 
-	private int downvotes;
+  @JoinColumn(name = "geolocation_id", referencedColumnName = "id")
+  @OneToOne(cascade = CascadeType.ALL)
+  private Geolocation geolocation;
 
-	public int getLikes() {
-		return likes;
-	}
+  @JoinColumn(name = "member_id", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  private Member member;
 
-	public void setLikes(int likes) {
-		this.likes = likes;
-	}
+  public long getId() {
+    return id;
+  }
 
-	public int getDownvotes() {
-		return downvotes;
-	}
+  public void setId(long id) {
+    this.id = id;
+  }
 
-	public void setDownvotes(int downvotes) {
-		this.downvotes = downvotes;
-	}
+  public String getType() {
+    return type;
+  }
 
-	public String getImgPath() {
-		return imgPath;
-	}
+  public void setType(String type) {
+    this.type = type;
+  }
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
+  public String getCategory() {
+    return category;
+  }
 
-	public long getId() {
-		return id;
-	}
+  public void setCategory(String category) {
+    this.category = category;
+  }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+  public String getDescription() {
+    return description;
+  }
 
-	public String getCategory() {
-		return category;
-	}
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+  public int getLikes() {
+    return likes;
+  }
 
-	public String getType() {
-		return type;
-	}
+  public void setLikes(int likes) {
+    this.likes = likes;
+  }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+  public int getDownvotes() {
+    return downvotes;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public void setDownvotes(int downvotes) {
+    this.downvotes = downvotes;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public Date getCreatedAt() {
+    return createdAt;
+  }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+  public Date getUpdatedAt() {
+    return updatedAt;
+  }
 
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+  public Area getArea() {
+    return area;
+  }
 
-	public Geolocation getGeolocation() {
-		return geolocation;
-	}
+  public void setArea(Area area) {
+    this.area = area;
+  }
 
-	public void setGeolocation(Geolocation geolocation) {
-		this.geolocation = geolocation;
-	}
+  public Image getImage() {
+    return image;
+  }
 
-	public Member getMember() {
-		return member;
-	}
+  public void setImage(Image image) {
+    this.image = image;
+  }
 
-	public void setMember(Member member) {
-		this.member = member;
-	}
+  public Collection<Comment> getComments() {
+    return comments;
+  }
 
-	public Area getArea() {
-		return area;
-	}
+  public void setComments(Collection<Comment> comments) {
+    this.comments = comments;
+  }
 
-	public void setArea(Area area) {
-		this.area = area;
-	}
+  public Geolocation getGeolocation() {
+    return geolocation;
+  }
 
-	
+  public void setGeolocation(Geolocation geolocation) {
+    this.geolocation = geolocation;
+  }
 
+  public Member getMember() {
+    return member;
+  }
+
+  public void setMember(Member member) {
+    this.member = member;
+  }
 }

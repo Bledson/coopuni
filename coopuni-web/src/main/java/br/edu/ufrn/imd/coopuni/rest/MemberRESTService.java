@@ -39,7 +39,7 @@ public class MemberRESTService {
   @Path("/{id:[0-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
   public Member lookupMemberById(@PathParam("id") long id) {
-    Member member = memberDAO.retrieve(id);
+    Member member = memberDAO.find(id);
     if (member == null) {
       throw new WebApplicationException(Response.Status.NOT_FOUND);
     }
@@ -104,7 +104,7 @@ public class MemberRESTService {
   private boolean emailAlreadyExists(String email) {
     Member member = null;
     try {
-      member = memberDAO.retrieveByEmail(email);
+      member = memberDAO.findByEmail(email);
     } catch (NoResultException e) {
       // ignore
     }
@@ -114,7 +114,7 @@ public class MemberRESTService {
   private boolean usernameAlreadyExists(String username) {
     Member member = null;
     try {
-      member = memberDAO.retrieveByUsername(username);
+      member = memberDAO.findByUsername(username);
     } catch (NoResultException e) {
       // ignore
     }
