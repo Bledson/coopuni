@@ -68,7 +68,7 @@ public class PostDAO implements AbstractDAO<Long, Post> {
     CriteriaBuilder cb = em.getCriteriaBuilder();
     CriteriaQuery<Post> c = cb.createQuery(Post.class);
     Root<Post> post = c.from(Post.class);
-    c.select(post).orderBy(cb.desc(post.get("created_at")));
+    c.select(post).orderBy(cb.desc(post.get("createdAt")));
     return em.createQuery(c).getResultList();
   }
 }

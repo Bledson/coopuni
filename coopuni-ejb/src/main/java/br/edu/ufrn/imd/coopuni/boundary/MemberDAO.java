@@ -17,8 +17,8 @@ public class MemberDAO implements AbstractDAO<Long, Member> {
 
   @Override
   public void create(Member entity) throws NoSuchAlgorithmException {
-    String newPassowrd = encryptPassword(entity.getPassword());
-    entity.setPassword(newPassowrd);
+    String newPassowrd = encryptPassword(entity.getPw());
+    entity.setPw(newPassowrd);
     em.persist(entity);
   }
 
@@ -53,28 +53,28 @@ public class MemberDAO implements AbstractDAO<Long, Member> {
     em.merge(entity);
   }
 
-  public boolean checkLogin(String username, String password) throws NoSuchAlgorithmException {
+  public boolean checkLogin(String username, String pw) throws NoSuchAlgorithmException {
     Member member = findByUsername(username);
     if (member != null) {
-      if (checkPassword(member, password))
+      if (checkPassword(member, pw))
         return true;
     }
     return false;
   }
 
-  private boolean checkPassword(Member member, String password) throws NoSuchAlgorithmException {
-    String encryptedPassword = encryptPassword(password);
-    if (member.getPassword().equals(encryptedPassword))
+  private boolean checkPassword(Member member, String pw) throws NoSuchAlgorithmException {
+    String encryptedPassword = encryptPassword(pw);
+    if (member.getPw().equals(encryptedPassword))
       return true;
     else
       return false;
   }
 
-  private String encryptPassword(String password) throws NoSuchAlgorithmException {
+  private String encryptPassword(String pw) throws NoSuchAlgorithmException {
     MessageDigest mDigest;
     try {
       mDigest = MessageDigest.getInstance("MD5");
-      byte[] valorMD5 = mDigest.digest(password.getBytes("UTF-8"));
+      byte[] valorMD5 = mDigest.digest(pw.getBytes("UTF-8"));
       StringBuffer sb = new StringBuffer();
       for (byte b : valorMD5) {
         sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));

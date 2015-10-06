@@ -20,8 +20,8 @@ public class MemberService {
     return memberDAO.find(id);
   }
 
-  public boolean checkLogin(String username, String password) throws NoSuchAlgorithmException {
-    return memberDAO.checkLogin(username, password);
+  public boolean checkLogin(String username, String pw) throws NoSuchAlgorithmException {
+    return memberDAO.checkLogin(username, pw);
   }
 
   public void register(Member member) throws Exception {

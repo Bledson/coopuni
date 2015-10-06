@@ -1,56 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://java.sun.com/jsf/core">
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xml:lang="pt-BR" lang="pt-BR">
 <h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<h:outputStylesheet name="bootstrap.css" library="bootstrap/css" />
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-	<link rel="stylesheet"
-		href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-	<h:outputStylesheet name="AdminLTE.min.css" library="css" />
-	<h:outputStylesheet name="skin-blue.min.css" library="css/skins" />
-	<h:outputStylesheet name="coopuni.css" library="css" />
-	<h:outputScript name="jQuery-2.1.4.min.js" library="plugins/jQuery" />
-	<h:outputScript name="bootstrap.min.js" library="bootstrap/js" />
-	<h:outputScript name="app.min.js" library="js" />
 </h:head>
-
-<h:body class="hold-transition register-page">
-	<div class="register-box">
-		<div class="register-logo">
-			<a href="../../index2.html"><b>Coop</b>Uni</a>
-		</div>
-		<div class="register-box-body">
-			<h:form enctype="multipart/form-data" id="form">
-				<div class="form-group has-feedback">
-					<h:inputText styleClass="form-control"
-						value="#{loginController.username}"
-						p:placeholder="username" />
-				</div>
-				<div class="form-group has-feedback">
-					<h:inputText styleClass="form-control"
-						value="#{loginController.password}" p:type="password"
-						p:placeholder="senha" />
-				</div>
-				<div class="row">					
-					<div class="col-xs-6 pull-right">
-						<div class="form-group">
-							<h:commandButton styleClass="btn btn-primary btn-block btn-flat"
-								value="Login" action="#{loginController.login}" />
-						</div>
-					</div>
-				</div>
-			</h:form>
-			<h:message for="form"/>
-		</div>
-	</div>
+<h:body>
+  <form action="j_security_check" method="post">
+    <h:outputLabel for="j_username" value="Nome de usuário:"/>
+    <h:inputText id="j_username"/>
+    <h:outputLabel for="j_password" value="Senha:"/>
+    <h:inputSecret id="j_password"/>
+    <h:commandButton type="submit" value="Login"/>
+  </form>
 </h:body>
 </html>

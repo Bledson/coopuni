@@ -31,7 +31,7 @@ public class Member implements Serializable {
   @NotEmpty
   @Pattern(regexp = "[0-9A-Za-z]*", message = "Precisa conter apenas letras e números")
   @Size(min = 5, max = 60)
-  private String password;
+  private String pw;
 
   private boolean admin;
 
@@ -77,12 +77,12 @@ public class Member implements Serializable {
     this.username = username;
   }
 
-  public String getPassword() {
-    return password;
+  public String getPw() {
+    return pw;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setPw(String pw) {
+    this.pw = pw;
   }
 
   public boolean isAdmin() {
