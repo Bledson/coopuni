@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 @Stateless
 public class MemberService {
+
   @Inject
   private Logger log;
 
@@ -20,12 +21,16 @@ public class MemberService {
     return memberDAO.find(id);
   }
 
-  public boolean checkLogin(String username, String pw) throws NoSuchAlgorithmException {
-    return memberDAO.checkLogin(username, pw);
-  }
 
   public void register(Member member) throws Exception {
     log.info("Registrando " + member.getUsername());
     memberDAO.create(member);
   }
+
+  public boolean isAuthorizationTokenValid(String user, String token) {
+    return memberDAO.checkUserToken(user,token);
+  }
+
+
+
 }

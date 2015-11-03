@@ -55,4 +55,5 @@ public class PostService {
   public void retrieveAllOrderedByNewer() {
     posts = postDAO.findAllOrderedByNewer();
   }
+
 }

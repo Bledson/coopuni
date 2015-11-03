@@ -7,94 +7,19 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+</h:head>
 <h:body>
-  <ui:composition template="WEB-INF/templates/base.xhtml">
-    <ui:define name="content">
       <div id="feed">
         <h:form>
           <ui:repeat value="#{postController.posts}" var="post">
             <div id="post">
-              <div class="row">
-                <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-                  <h:graphicImage library="images" name="us-ft-1.png"
-                                  styleClass="img-circle user-img"/>
-                  <h5>
-                    <h:outputText value="#{post.member.username}"
-                                  styleClass="text-center"/>
-                  </h5>
-                </div>
-                <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
-                  <h:graphicImage library="images" name="img-pb-1.jpg"
-                                  styleClass="img-rounded post-img"/>
+              <h:panelGrid columns="1">
 
-                  <div class="opcoes arredondar">
-                    <div class="row">
-                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
-                      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h:outputLabel value="Local"/>
-                        <h:outputText value="#{post.area.description}"/>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h:outputLabel value="Categoria"/>
-                        <h:outputText value="#{post.category}"/>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h4>
-                          <h:outputText value="#{post.description}"/>
-                        </h4>
-                      </div>
-                    </div>
-
-                    <div class="row ">
-                      <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4">
-                        <h:commandLink action="#{postController.votar}"
-                                       value=" Apoie #{post.likes}" id="like"
-                                       styleClass="glyphicon glyphicon-thumbs-up btn btn-small ">
-                          <f:param value="up" name="vote"/>
-                          <f:param value="#{post.id}" name="post_id"/>
-                        </h:commandLink>
-                      </div>
-                      <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4">
-                        <h:commandLink action="#{postController.votar}"
-                                       value=" #{post.downvotes} Não Curti"
-                                       styleClass="glyphicon glyphicon-thumbs-down btn btn-small">
-                          <f:param value="down" name="vote"/>
-                          <f:param value="#{post.id}" name="post_id"/>
-                        </h:commandLink>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-                        <h:graphicImage library="img" name="avatar04.png"
-                                        styleClass="img-circle user-img-comment"/>
-                      </div>
-                      <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
-                        <h:form>
-                          <h:inputTextarea value="" styleClass="form-control"
-                                           rows="2"
-                                           pt:placeholder="Escreva um comentário..."
-                                           cols="105"/>
-                          <h:commandButton action="#" value="comentar"
-                                           styleClass="btn btn-xs bg-color-orange pull-right btn-comentar"/>
-                        </h:form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </h:panelGrid>
             </div>
           </ui:repeat>
         </h:form>
       </div>
-    </ui:define>
-  </ui:composition>
 </h:body>
 </html>

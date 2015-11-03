@@ -36,18 +36,18 @@ public class LoginController extends CController {
     this.password = password;
   }
 
-  public String login() throws Exception {
-    try {
-      boolean exist = memberService.checkLogin(username, password);
-      if (exist)
-        return "sucess";
-      else
-        facesContext.addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro!", "Senha ou usuario incorreto"));
-    } catch (NoSuchAlgorithmException e) {
-      printErrorMsg(e, facesContext);
-    }
-    return null;
-  }
+//  public String login() throws Exception {
+//    try {
+//      boolean exist = memberService.checkLogin(username, password);
+//      if (exist)
+//        return "sucess";
+//      else
+//        facesContext.addMessage(null,
+//            new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro!", "Senha ou usuario incorreto"));
+//    } catch (NoSuchAlgorithmException e) {
+//      printErrorMsg(e, facesContext);
+//    }
+//    return null;
+//  }
 
 }

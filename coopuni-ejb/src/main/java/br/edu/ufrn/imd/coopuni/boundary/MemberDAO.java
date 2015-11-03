@@ -10,16 +10,25 @@ import javax.persistence.criteria.Root;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 public class MemberDAO implements AbstractDAO<Long, Member> {
+
   @Inject
   private EntityManager em;
 
   @Override
   public void create(Member entity) throws NoSuchAlgorithmException {
-    String newPassowrd = encryptPassword(entity.getPw());
-    entity.setPw(newPassowrd);
+    entity.setToken(this.generateToken());
     em.persist(entity);
+  }
+
+  private String generateToken(){
+    SecureRandom random = new SecureRandom();
+    byte bytes[] = new byte[60];
+    random.nextBytes(bytes);
+    String token = bytes.toString();
+    return token;
   }
 
   @Override
@@ -53,42 +62,13 @@ public class MemberDAO implements AbstractDAO<Long, Member> {
     em.merge(entity);
   }
 
-  public boolean checkLogin(String username, String pw) throws NoSuchAlgorithmException {
+
+  public boolean checkUserToken(String username, String token){
     Member member = findByUsername(username);
-    if (member != null) {
-      if (checkPassword(member, pw))
-        return true;
-    }
-    return false;
-  }
-
-  private boolean checkPassword(Member member, String pw) throws NoSuchAlgorithmException {
-    String encryptedPassword = encryptPassword(pw);
-    if (member.getPw().equals(encryptedPassword))
+    if(token.compareTo(member.getToken())==0){
       return true;
-    else
+    } else
       return false;
-  }
-
-  private String encryptPassword(String pw) throws NoSuchAlgorithmException {
-    MessageDigest mDigest;
-    try {
-      mDigest = MessageDigest.getInstance("MD5");
-      byte[] valorMD5 = mDigest.digest(pw.getBytes("UTF-8"));
-      StringBuffer sb = new StringBuffer();
-      for (byte b : valorMD5) {
-        sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));
-      }
-      return sb.toString();
-    } catch (NoSuchAlgorithmException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-      return null;
-    } catch (UnsupportedEncodingException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-      return null;
-    }
   }
 
 }

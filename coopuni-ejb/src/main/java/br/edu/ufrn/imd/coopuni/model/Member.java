@@ -35,6 +35,8 @@ public class Member implements Serializable {
 
   private boolean admin;
 
+  private String token;
+
   @Column(name = "created_at")
   @Temporal(TemporalType.DATE)
   private Date createdAt;
@@ -52,6 +54,14 @@ public class Member implements Serializable {
 
   @OneToMany(mappedBy = "member")
   private Collection<Post> posts;
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
+  }
 
   public long getId() {
     return id;
