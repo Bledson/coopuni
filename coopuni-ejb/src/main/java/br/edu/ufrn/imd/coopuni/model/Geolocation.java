@@ -4,8 +4,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -17,11 +19,11 @@ public class Geolocation implements Serializable {
   private long id;
 
   @Digits(fraction = 6, integer = 10)
-  @NotEmpty
+  @NotNull
   private Float latitude;
 
   @Digits(fraction = 6, integer = 10)
-  @NotEmpty
+  @NotNull
   private Float longitude;
 
   @Column(name = "created_at")
@@ -36,8 +38,8 @@ public class Geolocation implements Serializable {
   @ManyToOne
   private Area area;
 
-  @OneToOne(mappedBy = "geolocation")
-  private Post post;
+  @OneToMany(mappedBy = "geolocation")
+  private Collection<Post> post;
 
   public long getId() {
     return id;
@@ -87,11 +89,12 @@ public class Geolocation implements Serializable {
     this.area = area;
   }
 
-  public Post getPost() {
+
+  public Collection<Post> getPost() {
     return post;
   }
 
-  public void setPost(Post post) {
+  public void setPost(Collection<Post> post) {
     this.post = post;
   }
 }

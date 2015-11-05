@@ -2,16 +2,22 @@ package br.edu.ufrn.imd.coopuni.boundary;
 
 import br.edu.ufrn.imd.coopuni.model.Geolocation;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+@ApplicationScoped
 public class GeolocationDAO implements AbstractDAO<Long, Geolocation> {
   @Inject
   private EntityManager em;
 
   @Override
   public void create(Geolocation entity) {
-    em.persist(entity);
+    try {
+      em.persist(entity);
+    }catch (Exception e){
+      System.out.print(e.getMessage());
+    }
   }
 
   @Override

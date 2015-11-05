@@ -16,7 +16,7 @@ public class Area implements Serializable {
 
   private String name;
 
-  @OneToMany(mappedBy = "area")
+  @OneToMany(mappedBy = "area", fetch = FetchType.EAGER)
   private Collection<Geolocation> geolocations;
 
   public long getId() {

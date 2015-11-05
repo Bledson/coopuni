@@ -10,16 +10,16 @@ import java.util.Date;
 
 @Entity
 @Table(name = "posts")
-@XmlRootElement
 public class Post implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   private long id;
 
-  private String type;
+  private boolean type;
 
-  @NotEmpty
-  private String category;
+  @JoinColumn(name = "category_id", referencedColumnName = "id")
+  @ManyToOne
+  private Category category;
 
   private String description;
 
@@ -47,7 +47,7 @@ public class Post implements Serializable {
   private Collection<Comment> comments;
 
   @JoinColumn(name = "geolocation_id", referencedColumnName = "id")
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL)
   private Geolocation geolocation;
 
   @JoinColumn(name = "member_id", referencedColumnName = "id")
@@ -62,19 +62,19 @@ public class Post implements Serializable {
     this.id = id;
   }
 
-  public String getType() {
+  public boolean getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(boolean type) {
     this.type = type;
   }
 
-  public String getCategory() {
+  public Category getCategory() {
     return category;
   }
 
-  public void setCategory(String category) {
+  public void setCategory(Category category) {
     this.category = category;
   }
 
