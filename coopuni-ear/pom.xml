@@ -6,7 +6,7 @@
 
   <parent>
     <artifactId>coopuni</artifactId>
-    <groupId>br.edu.ufrn.br</groupId>
+    <groupId>br.edu.ufrn.imd</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
@@ -17,12 +17,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>br.edu.ufrn.br</groupId>
+      <groupId>br.edu.ufrn.imd</groupId>
       <artifactId>coopuni-web</artifactId>
       <type>war</type>
     </dependency>
     <dependency>
-      <groupId>br.edu.ufrn.br</groupId>
+      <groupId>br.edu.ufrn.imd</groupId>
       <artifactId>coopuni-ejb</artifactId>
       <type>ejb</type>
     </dependency>
@@ -38,6 +38,16 @@
         <configuration>
           <version>7</version>
           <defaultLibBundleDir>lib</defaultLibBundleDir>
+          <modules>
+            <!-- Default context root of the web app is /coopuni-web.
+                If a custom context root is needed, uncomment the following snippet to
+                register our War as a web module and set the contextRoot property -->
+            <webModule>
+                <groupId>br.edu.ufrn.imd</groupId>
+                <artifactId>coopuni-web</artifactId>
+                <contextRoot>/coopuni</contextRoot>
+            </webModule>
+          </modules>
           <fileNameMapping>no-version</fileNameMapping>
         </configuration>
       </plugin>

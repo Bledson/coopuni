@@ -29,20 +29,16 @@ public class PostService {
     postDAO.create(post);
   }
 
-  public List<Area> getPostAreas() {
+  public List<Area> retrieveAreasOrderedByName() {
     return areaService.retrieveAllOrderedByName();
   }
 
-  public List<Post> getPostsByUserId(long id) {
+  public List<Post> retrievePostsByUserId(long id) {
     return postDAO.findByUserId(id);
   }
 
-  public Post get(long id) {
+  public Post retrieve(long id) {
     return postDAO.find(id);
-  }
-
-  public void updateVote(String type, long postID) throws Exception {
-    postDAO.updateVote(type, postID);
   }
 
   @Named

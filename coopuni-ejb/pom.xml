@@ -6,7 +6,7 @@
 
   <parent>
     <artifactId>coopuni</artifactId>
-    <groupId>br.edu.ufrn.br</groupId>
+    <groupId>br.edu.ufrn.imd</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 

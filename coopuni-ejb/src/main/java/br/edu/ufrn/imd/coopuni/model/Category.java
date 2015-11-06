@@ -5,16 +5,17 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-@Table(name = "areas")
-public class Area implements Serializable {
+@Table(name = "categories")
+public class Category implements Serializable {
+
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   private long id;
 
   private String name;
 
-  @OneToMany(mappedBy = "area")
-  private Collection<Geolocation> geolocations;
+  @OneToMany(mappedBy = "category")
+  private Collection<Post> posts;
 
   public long getId() {
     return id;
@@ -32,11 +33,11 @@ public class Area implements Serializable {
     this.name = name;
   }
 
-  public Collection<Geolocation> getGeolocations() {
-    return geolocations;
+  public Collection<Post> getPosts() {
+    return posts;
   }
 
-  public void setGeolocations(Collection<Geolocation> geolocations) {
-    this.geolocations = geolocations;
+  public void setPosts(Collection<Post> posts) {
+    this.posts = posts;
   }
 }

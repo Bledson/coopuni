@@ -11,14 +11,13 @@ import javax.inject.Inject;
 
 @Model
 public class AreaConverter implements Converter {
-
   @Inject
   AreaService areaService;
 
   @Override
   public Object getAsObject(FacesContext context, UIComponent component, String value) {
     Long id = Long.valueOf(value);
-    Area area = areaService.retrieveById(id);
+    Area area = areaService.retrieve(id);
     return area;
   }
 
@@ -28,5 +27,4 @@ public class AreaConverter implements Converter {
     Long id = area.getId();
     return String.valueOf(id);
   }
-
 }

@@ -6,24 +6,15 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.HttpHeaders;
 
-/**
- * Created by andreza on 01/11/15.
- */
 @RequestScoped
 public class SecurityFilter {
-
   @Inject
   MemberService memberService;
-
 
   public boolean isUserAllowed(HttpHeaders hHeaders) {
     String user = hHeaders.getRequestHeader("user").get(0);
     String token = hHeaders.getRequestHeader("token").get(0);
 
-    if (memberService.isAuthorizationTokenValid(user, token)) {
-      return true;
-    }
-    return false; // 401
+    return (memberService.checkUserToken(user, token)) ? true : false;
   }
-
 }

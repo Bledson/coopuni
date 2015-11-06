@@ -1,6 +1,6 @@
 package br.edu.ufrn.imd.coopuni.service;
 
-import br.edu.ufrn.imd.coopuni.boundary.AreaDAOImpl;
+import br.edu.ufrn.imd.coopuni.boundary.AreaDAO;
 import br.edu.ufrn.imd.coopuni.model.Area;
 
 import javax.ejb.Stateless;
@@ -10,11 +10,7 @@ import java.util.List;
 @Stateless
 public class AreaService {
   @Inject
-  private AreaDAOImpl areaDAO;
-
-  public void register(Area area) throws Exception {
-    areaDAO.create(area);
-  }
+  private AreaDAO areaDAO;
 
   public Area retrieve(long id) {
     return areaDAO.find(id);
@@ -22,9 +18,5 @@ public class AreaService {
 
   public List<Area> retrieveAllOrderedByName() {
     return areaDAO.findAllOrderedByName();
-  }
-
-  public Area retrieveById(long id) {
-    return areaDAO.find(id);
   }
 }

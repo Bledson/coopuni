@@ -1,9 +1,7 @@
 package br.edu.ufrn.imd.coopuni.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -15,10 +13,8 @@ public class Post implements Serializable {
   @Id
   private long id;
 
-  private String type;
-
-  @NotEmpty
-  private String category;
+  @NotNull
+  private boolean type;
 
   private String description;
 
@@ -38,16 +34,20 @@ public class Post implements Serializable {
   @OneToOne
   private Area area;
 
-  @OneToOne
-  @PrimaryKeyJoinColumn
-  private Image image;
-
   @OneToMany(mappedBy = "post")
   private Collection<Comment> comments;
+
+  @JoinColumn(name = "category_id", referencedColumnName = "id")
+  @ManyToOne
+  private Category category;
 
   @JoinColumn(name = "geolocation_id", referencedColumnName = "id")
   @OneToOne(cascade = CascadeType.ALL)
   private Geolocation geolocation;
+
+  @OneToOne
+  @PrimaryKeyJoinColumn
+  private Image image;
 
   @JoinColumn(name = "member_id", referencedColumnName = "id")
   @ManyToOne(optional = false)
@@ -61,20 +61,12 @@ public class Post implements Serializable {
     this.id = id;
   }
 
-  public String getType() {
+  public boolean isType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(boolean type) {
     this.type = type;
-  }
-
-  public String getCategory() {
-    return category;
-  }
-
-  public void setCategory(String category) {
-    this.category = category;
   }
 
   public String getDescription() {
@@ -125,14 +117,6 @@ public class Post implements Serializable {
     this.area = area;
   }
 
-  public Image getImage() {
-    return image;
-  }
-
-  public void setImage(Image image) {
-    this.image = image;
-  }
-
   public Collection<Comment> getComments() {
     return comments;
   }
@@ -141,12 +125,28 @@ public class Post implements Serializable {
     this.comments = comments;
   }
 
+  public Category getCategory() {
+    return category;
+  }
+
+  public void setCategory(Category category) {
+    this.category = category;
+  }
+
   public Geolocation getGeolocation() {
     return geolocation;
   }
 
   public void setGeolocation(Geolocation geolocation) {
     this.geolocation = geolocation;
+  }
+
+  public Image getImage() {
+    return image;
+  }
+
+  public void setImage(Image image) {
+    this.image = image;
   }
 
   public Member getMember() {
