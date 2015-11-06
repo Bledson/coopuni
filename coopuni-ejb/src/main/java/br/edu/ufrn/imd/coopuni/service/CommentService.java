@@ -24,7 +24,7 @@ public class CommentService {
   public void register(Comment comment, long postID) throws Exception {
     log.info("Registrando  comentario");
     Post post = postDAO.find(postID);
-    commentDAO.createcomment(comment,post);
+    commentDAO.createcomment(comment, post);
   }
 
 

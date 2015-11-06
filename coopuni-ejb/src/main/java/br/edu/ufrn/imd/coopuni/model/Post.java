@@ -10,7 +10,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "posts")
-@XmlRootElement
 public class Post implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id

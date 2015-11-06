@@ -13,7 +13,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "members", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "username"}))
-@XmlRootElement
 public class Member implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id

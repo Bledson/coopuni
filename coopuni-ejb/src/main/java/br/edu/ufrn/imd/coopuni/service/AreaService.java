@@ -1,6 +1,6 @@
 package br.edu.ufrn.imd.coopuni.service;
 
-import br.edu.ufrn.imd.coopuni.boundary.AreaDAO;
+import br.edu.ufrn.imd.coopuni.boundary.AreaDAOImpl;
 import br.edu.ufrn.imd.coopuni.model.Area;
 
 import javax.ejb.Stateless;
@@ -10,7 +10,7 @@ import java.util.List;
 @Stateless
 public class AreaService {
   @Inject
-  private AreaDAO areaDAO;
+  private AreaDAOImpl areaDAO;
 
   public void register(Area area) throws Exception {
     areaDAO.create(area);

@@ -9,7 +9,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "comments")
-@XmlRootElement
 public class Comment implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id

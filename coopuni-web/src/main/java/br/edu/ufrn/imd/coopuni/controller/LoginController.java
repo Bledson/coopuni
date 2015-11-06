@@ -3,10 +3,8 @@ package br.edu.ufrn.imd.coopuni.controller;
 import br.edu.ufrn.imd.coopuni.service.MemberService;
 
 import javax.enterprise.inject.Model;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import java.security.NoSuchAlgorithmException;
 
 @Model
 public class LoginController extends CController {

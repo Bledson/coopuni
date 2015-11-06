@@ -7,9 +7,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "areas")
-@XmlRootElement
 public class Area implements Serializable {
-
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   private long id;

@@ -1,9 +1,5 @@
 package br.edu.ufrn.imd.coopuni.util;
 
-import br.edu.ufrn.imd.coopuni.model.Post;
-
-import javax.decorator.Decorator;
-import javax.decorator.Delegate;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -22,29 +18,29 @@ import java.util.logging.Logger;
 
 public class Validation<E> {
 
-    @Inject
-    private Validator validator;
+  @Inject
+  private Validator validator;
 
-    @Inject
-    private Logger log;
+  @Inject
+  private Logger log;
 
-    public Response.ResponseBuilder createViolationResponse(Set<ConstraintViolation<?>> violations) {
-        log.fine("Validação completa. violações encontradas: " + violations.size());
+  public Response.ResponseBuilder createViolationResponse(Set<ConstraintViolation<?>> violations) {
+    log.fine("Validação completa. violações encontradas: " + violations.size());
 
-        Map<String, String> responseObj = new HashMap<String, String>();
+    Map<String, String> responseObj = new HashMap<String, String>();
 
-        for (ConstraintViolation<?> violation : violations) {
-            responseObj.put(violation.getPropertyPath().toString(), violation.getMessage());
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
+    for (ConstraintViolation<?> violation : violations) {
+      responseObj.put(violation.getPropertyPath().toString(), violation.getMessage());
     }
 
-    public void validate(E type) throws ValidationException {
-        Set<ConstraintViolation<E>> violations = validator.validate(type);
+    return Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
+  }
 
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
-        }
+  public void validate(E type) throws ValidationException {
+    Set<ConstraintViolation<E>> violations = validator.validate(type);
+
+    if (!violations.isEmpty()) {
+      throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
     }
+  }
 }

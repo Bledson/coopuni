@@ -5,7 +5,6 @@ import br.edu.ufrn.imd.coopuni.model.Member;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
 @Stateless
@@ -28,9 +27,8 @@ public class MemberService {
   }
 
   public boolean isAuthorizationTokenValid(String user, String token) {
-    return memberDAO.checkUserToken(user,token);
+    return memberDAO.checkUserToken(user, token);
   }
-
 
 
 }
