@@ -12,11 +12,7 @@ public class GeolocationService {
   @Inject
   GeolocationDAO geolocationDAO;
 
-  public void register(Float latitude, Float longitude, Area area) throws Exception {
-    Geolocation geolocation = new Geolocation();
-    geolocation.setLatitude(latitude);
-    geolocation.setLongitude(longitude);
-    geolocation.setArea(area);
+  public void create(Geolocation geolocation) throws Exception {
     geolocationDAO.create(geolocation);
   }
 

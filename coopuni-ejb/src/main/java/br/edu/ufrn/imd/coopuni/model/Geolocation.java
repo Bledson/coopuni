@@ -29,8 +29,8 @@ public class Geolocation implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
 
-  @JoinColumn(name = "area_id", referencedColumnName = "id")
-  @ManyToOne
+  @JoinColumn(name = "area_id", nullable = false, referencedColumnName = "id")
+  @ManyToOne(optional = false)
   private Area area;
 
   @OneToOne(mappedBy = "geolocation")

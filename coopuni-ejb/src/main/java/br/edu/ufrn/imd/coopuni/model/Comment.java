@@ -24,11 +24,11 @@ public class Comment implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
 
-  @JoinColumn(name = "member_id", referencedColumnName = "id")
+  @JoinColumn(name = "member_id", nullable = false, referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Member member;
 
-  @JoinColumn(name = "post_id", referencedColumnName = "id")
+  @JoinColumn(name = "post_id", nullable = false, referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Post post;
 

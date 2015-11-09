@@ -17,8 +17,7 @@ public class AreaConverter implements Converter {
   @Override
   public Object getAsObject(FacesContext context, UIComponent component, String value) {
     Long id = Long.valueOf(value);
-    Area area = areaService.retrieve(id);
-    return area;
+    return areaService.retrieve(id);
   }
 
   @Override

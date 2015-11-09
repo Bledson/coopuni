@@ -43,14 +43,14 @@ public class Member implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
 
-  @OneToMany(mappedBy = "member")
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "member")
   private Collection<Comment> comments;
 
   @OneToOne
   @PrimaryKeyJoinColumn
   private Image image;
 
-  @OneToMany(mappedBy = "member")
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "member")
   private Collection<Post> posts;
 
   public String getToken() {

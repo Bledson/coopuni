@@ -15,8 +15,9 @@ public class MemberService {
   @Inject
   private MemberDAO memberDAO;
 
-  public Member retrieve(long id) {
-    return memberDAO.find(id);
+  public boolean checkUserToken(String username, String token) {
+    Member member = memberDAO.findByUsername(username);
+    return (token.compareTo(member.getToken()) == 0);
   }
 
   public void register(Member member) throws Exception {
@@ -24,8 +25,15 @@ public class MemberService {
     memberDAO.create(member);
   }
 
-  public boolean checkUserToken(String username, String token) {
-    Member member = memberDAO.findByUsername(username);
-    return (token.compareTo(member.getToken()) == 0) ? true : false;
+  public Member retrieve(long id) {
+    return memberDAO.find(id);
+  }
+
+  public Member retrieveByEmail(String email) {
+    return memberDAO.findByEmail(email);
+  }
+
+  public Member retrieveByUsername(String username) {
+    return memberDAO.findByUsername(username);
   }
 }

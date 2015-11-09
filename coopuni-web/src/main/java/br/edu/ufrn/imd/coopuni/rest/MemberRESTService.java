@@ -1,6 +1,5 @@
 package br.edu.ufrn.imd.coopuni.rest;
 
-import br.edu.ufrn.imd.coopuni.boundary.MemberDAO;
 import br.edu.ufrn.imd.coopuni.model.Member;
 import br.edu.ufrn.imd.coopuni.service.MemberService;
 
@@ -27,19 +26,16 @@ public class MemberRESTService {
   private Logger log;
 
   @Inject
-  private Validator validator;
-
-  @Inject
-  private MemberDAO memberDAO;
-
-  @Inject
   private MemberService memberService;
+
+  @Inject
+  private Validator validator;
 
   @GET
   @Path("/{id:[0-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
   public Member lookupMemberById(@PathParam("id") long id) {
-    Member member = memberDAO.find(id);
+    Member member = memberService.retrieve(id);
     if (member == null) {
       throw new WebApplicationException(Response.Status.NOT_FOUND);
     }
@@ -50,7 +46,7 @@ public class MemberRESTService {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public Response createMember(Member member) {
-    Response.ResponseBuilder builder = null;
+    Response.ResponseBuilder builder;
 
     try {
       validateMember(member);
@@ -61,11 +57,11 @@ public class MemberRESTService {
     } catch (ConstraintViolationException ce) {
       builder = createViolationResponse(ce.getConstraintViolations());
     } catch (ValidationException e) {
-      Map<String, String> responseObj = new HashMap<String, String>();
+      Map<String, String> responseObj = new HashMap<>();
       responseObj.put("email", "E-mail já cadastrado");
       builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
     } catch (Exception e) {
-      Map<String, String> responseObj = new HashMap<String, String>();
+      Map<String, String> responseObj = new HashMap<>();
       responseObj.put("Erro", e.getMessage());
       builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
     }
@@ -92,7 +88,7 @@ public class MemberRESTService {
   private Response.ResponseBuilder createViolationResponse(Set<ConstraintViolation<?>> violations) {
     log.fine("Validação completa. violações encontradas: " + violations.size());
 
-    Map<String, String> responseObj = new HashMap<String, String>();
+    Map<String, String> responseObj = new HashMap<>();
 
     for (ConstraintViolation<?> violation : violations) {
       responseObj.put(violation.getPropertyPath().toString(), violation.getMessage());
@@ -104,7 +100,7 @@ public class MemberRESTService {
   private boolean emailAlreadyExists(String email) {
     Member member = null;
     try {
-      member = memberDAO.findByEmail(email);
+      member = memberService.retrieveByEmail(email);
     } catch (NoResultException e) {
       // ignore
     }
@@ -114,7 +110,7 @@ public class MemberRESTService {
   private boolean usernameAlreadyExists(String username) {
     Member member = null;
     try {
-      member = memberDAO.findByUsername(username);
+      member = memberService.retrieveByUsername(username);
     } catch (NoResultException e) {
       // ignore
     }

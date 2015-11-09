@@ -1,12 +1,7 @@
 package br.edu.ufrn.imd.coopuni.rest;
 
-import br.edu.ufrn.imd.coopuni.model.Area;
-import br.edu.ufrn.imd.coopuni.model.Category;
-import br.edu.ufrn.imd.coopuni.model.Post;
-import br.edu.ufrn.imd.coopuni.service.AreaService;
-import br.edu.ufrn.imd.coopuni.service.CategoryService;
-import br.edu.ufrn.imd.coopuni.service.GeolocationService;
-import br.edu.ufrn.imd.coopuni.service.PostService;
+import br.edu.ufrn.imd.coopuni.model.*;
+import br.edu.ufrn.imd.coopuni.service.*;
 import br.edu.ufrn.imd.coopuni.util.SecurityFilter;
 
 import javax.enterprise.context.RequestScoped;
@@ -26,22 +21,29 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
-
 @Path("/posts")
 @RequestScoped
 public class PostRESTService extends SecurityFilter {
   @Inject
   AreaService areaService;
-  @Inject
-  GeolocationService geolocationService;
-  @Inject
-  private Logger log;
-  @Inject
-  private Validator validator;
+
   @Inject
   private CategoryService categoryService;
+
+  @Inject
+  GeolocationService geolocationService;
+
+  @Inject
+  private Logger log;
+
+  @Inject
+  private MemberService memberService;
+
   @Inject
   private PostService postService;
+
+  @Inject
+  private Validator validator;
 
   @GET
   @Path("/{id}:[0-9][0-9]*")
@@ -58,23 +60,21 @@ public class PostRESTService extends SecurityFilter {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public Response createPost(Post post, @Context HttpHeaders hHeaders) {
-    Response.ResponseBuilder builder = null;
-    if (this.isUserAllowed(hHeaders)) {
-      try {
-        validatePost(post);
-        Category category = categoryService.retrieve(post.getCategory().getId());
-        post.setCategory(category);
-        Area area = areaService.retrieve(post.getArea().getId());
-        post.setArea(area);
-        geolocationService.register(post.getGeolocation().getLatitude(), post.getGeolocation().getLongitude(), area);
-        postService.register(post);
+    Response.ResponseBuilder builder;
 
-        builder = Response.ok();
-      } catch (ConstraintViolationException ce) {
-        builder = createViolationResponse(ce.getConstraintViolations());
-      } catch (Exception e) {
-        //
+    try {
+      if (this.isUserAllowed(hHeaders)) {
+        validatePost(post);
+        postService.create(post);
       }
+
+      builder = Response.ok();
+    } catch (ConstraintViolationException ce) {
+      builder = createViolationResponse(ce.getConstraintViolations());
+    } catch (Exception e) {
+      Map<String, String> responseObj = new HashMap<>();
+      responseObj.put("Erro", e.getMessage());
+      builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
     }
 
     return builder.build();
@@ -83,7 +83,7 @@ public class PostRESTService extends SecurityFilter {
   private Response.ResponseBuilder createViolationResponse(Set<ConstraintViolation<?>> violations) {
     log.fine("Validação completa. violações encontradas: " + violations.size());
 
-    Map<String, String> responseObj = new HashMap<String, String>();
+    Map<String, String> responseObj = new HashMap<>();
 
     for (ConstraintViolation<?> violation : violations) {
       responseObj.put(violation.getPropertyPath().toString(), violation.getMessage());

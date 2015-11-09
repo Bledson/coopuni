@@ -34,7 +34,7 @@ public class Post implements Serializable {
   @OneToOne
   private Area area;
 
-  @OneToMany(mappedBy = "post")
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "post")
   private Collection<Comment> comments;
 
   @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -49,7 +49,7 @@ public class Post implements Serializable {
   @PrimaryKeyJoinColumn
   private Image image;
 
-  @JoinColumn(name = "member_id", referencedColumnName = "id")
+  @JoinColumn(name = "member_id", nullable = false, referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Member member;
 

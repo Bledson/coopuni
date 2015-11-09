@@ -15,6 +15,6 @@ public class SecurityFilter {
     String user = hHeaders.getRequestHeader("user").get(0);
     String token = hHeaders.getRequestHeader("token").get(0);
 
-    return (memberService.checkUserToken(user, token)) ? true : false;
+    return (memberService.checkUserToken(user, token));
   }
 }
