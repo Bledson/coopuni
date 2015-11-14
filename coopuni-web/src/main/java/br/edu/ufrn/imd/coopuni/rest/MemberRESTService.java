@@ -43,6 +43,7 @@ public class MemberRESTService {
   }
 
   @POST
+  @Path("/")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public Response createMember(Member member) {

@@ -5,6 +5,7 @@ import br.edu.ufrn.imd.coopuni.model.Member;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -42,7 +43,12 @@ public class MemberDAOImpl implements MemberDAO {
     CriteriaQuery<Member> c = cb.createQuery(Member.class);
     Root<Member> member = c.from(Member.class);
     c.select(member).where(cb.equal(member.get("email"), email));
-    return em.createQuery(c).getSingleResult();
+    try {
+      return em.createQuery(c).getSingleResult();
+    } catch (NoResultException e) {
+      return null;
+    }
+
   }
 
   @Override
@@ -51,7 +57,11 @@ public class MemberDAOImpl implements MemberDAO {
     CriteriaQuery<Member> c = cb.createQuery(Member.class);
     Root<Member> member = c.from(Member.class);
     c.select(member).where(cb.equal(member.get("username"), username));
-    return em.createQuery(c).getSingleResult();
+    try {
+      return em.createQuery(c).getSingleResult();
+    }catch (NoResultException e) {
+      return null;
+    }
   }
 
   @Override
