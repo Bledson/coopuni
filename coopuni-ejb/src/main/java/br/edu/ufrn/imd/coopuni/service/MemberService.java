@@ -20,6 +20,7 @@ public class MemberService {
     return (token.compareTo(member.getToken()) == 0);
   }
 
+
   public void register(Member member) throws Exception {
     log.info("Registrando " + member.getUsername());
     memberDAO.create(member);
