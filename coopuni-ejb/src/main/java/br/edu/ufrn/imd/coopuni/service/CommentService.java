@@ -17,12 +17,8 @@ public class CommentService {
   @Inject
   private Logger log;
 
-  @Inject
-  private PostDAO postDAO;
-
-  public void register(Comment comment, long postID) throws Exception {
+  public void create(Comment comment) throws Exception {
     log.info("Registrando comentario");
-    Post post = postDAO.find(postID);
-    //commentDAO.createcomment(comment, post);
+    commentDAO.create(comment);
   }
 }

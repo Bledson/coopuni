@@ -2,6 +2,7 @@ package br.edu.ufrn.imd.coopuni.rest;
 
 import br.edu.ufrn.imd.coopuni.model.Comment;
 import br.edu.ufrn.imd.coopuni.service.CommentService;
+import br.edu.ufrn.imd.coopuni.service.MemberService;
 import br.edu.ufrn.imd.coopuni.service.PostService;
 import br.edu.ufrn.imd.coopuni.util.SecurityFilter;
 
@@ -32,23 +33,25 @@ public class CommentRESTService extends SecurityFilter {
   private Logger log;
 
   @Inject
+  private MemberService memberService;
+
+  @Inject
   private PostService postService;
 
   @Inject
   private Validator validator;
 
   @POST
-  @Path("/{id}:[0-9][0-9]*")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public Response createcomment(Comment comment, @PathParam("id") long id, @Context HttpHeaders hHeaders) {
+  public Response createcomment(Comment comment, @Context HttpHeaders hHeaders) {
     Response.ResponseBuilder builder;
 
     try {
-      this.validateComment(comment);
-
-      if (this.isUserAllowed(hHeaders))
-        commentService.register(comment, id);
+      if (this.isUserAllowed(hHeaders)) {
+        this.validateComment(comment);
+        commentService.create(comment);
+      }
 
       builder = Response.ok();
     } catch (ConstraintViolationException ce) {
