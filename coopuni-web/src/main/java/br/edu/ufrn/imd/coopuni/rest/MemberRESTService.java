@@ -13,6 +13,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.ValidationException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -51,7 +54,8 @@ public class MemberRESTService {
 
     try {
       validateMember(member);
-
+      String pw =member.getPw();
+      member.setPw(transformToMD5(pw));
       memberService.register(member);
 
       builder = Response.ok();
@@ -69,6 +73,30 @@ public class MemberRESTService {
 
     return builder.build();
   }
+
+    private String transformToMD5(String pw) {
+        try {
+            MessageDigest m= MessageDigest.getInstance("MD5");
+            m.update(pw.getBytes(),0,pw.length());
+            return new BigInteger(1,m.digest()).toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @GET
+    @Path("/login/{user}/{pw}")
+    public String  login(@PathParam("user") String username, @PathParam("pw") String password) {
+        Member member = memberService.retrieveByUsername(username);
+        if(member != null){
+            String pwmd5 = this.transformToMD5(password);
+            if((member.getPw().compareTo(pwmd5) == 0) && (pwmd5 != null)) {
+                return member.getToken();
+            }
+        }
+        return null;
+    }
 
   private void validateMember(Member member) throws ValidationException {
     Set<ConstraintViolation<Member>> violations = validator.validate(member);
