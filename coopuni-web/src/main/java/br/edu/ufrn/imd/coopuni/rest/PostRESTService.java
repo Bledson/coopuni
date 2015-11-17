@@ -46,7 +46,7 @@ public class PostRESTService extends SecurityFilter {
   }
 
   @GET
-  @Path("/{id}:[0-9][0-9]*")
+  @Path("/{id:[0-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
   public Post lookupPostById(@PathParam("id") long id) {
     Post post = postService.retrieve(id);

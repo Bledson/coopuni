@@ -11,19 +11,13 @@ import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.ValidationException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Path("/comment")
@@ -43,6 +37,17 @@ public class CommentRESTService extends SecurityFilter {
 
   @Inject
   private Validator validator;
+
+  @GET
+  @Path("/{id:[0-9][0-9]*}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Comment lookupCommentById(@PathParam("id") long id) {
+    Comment comment = commentService.retrieve(id);
+    if (comment == null) {
+      throw new WebApplicationException(Response.Status.NOT_FOUND);
+    }
+    return comment;
+  }
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
