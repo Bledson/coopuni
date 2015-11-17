@@ -1,21 +1,26 @@
 package br.edu.ufrn.imd.coopuni.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "categories")
 public class Category implements Serializable {
-
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   private long id;
 
   private String name;
 
-  @OneToMany(mappedBy = "category")
-  private Collection<Post> posts;
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
+  private Set<Post> posts;
 
   public long getId() {
     return id;
@@ -33,11 +38,11 @@ public class Category implements Serializable {
     this.name = name;
   }
 
-  public Collection<Post> getPosts() {
+  public Set<Post> getPosts() {
     return posts;
   }
 
-  public void setPosts(Collection<Post> posts) {
+  public void setPosts(Set<Post> posts) {
     this.posts = posts;
   }
 }

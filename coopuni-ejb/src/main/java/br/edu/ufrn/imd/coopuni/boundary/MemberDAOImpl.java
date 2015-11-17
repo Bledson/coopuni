@@ -59,7 +59,7 @@ public class MemberDAOImpl implements MemberDAO {
     c.select(member).where(cb.equal(member.get("username"), username));
     try {
       return em.createQuery(c).getSingleResult();
-    }catch (NoResultException e) {
+    } catch (NoResultException e) {
       return null;
     }
   }

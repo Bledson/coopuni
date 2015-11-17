@@ -1,6 +1,6 @@
 package br.edu.ufrn.imd.coopuni.rest;
 
-import br.edu.ufrn.imd.coopuni.model.*;
+import br.edu.ufrn.imd.coopuni.model.Post;
 import br.edu.ufrn.imd.coopuni.service.*;
 import br.edu.ufrn.imd.coopuni.util.SecurityFilter;
 
@@ -15,10 +15,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.ValidationException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Path("/posts")
@@ -26,13 +23,10 @@ import java.util.logging.Logger;
 public class PostRESTService extends SecurityFilter {
   @Inject
   AreaService areaService;
-
-  @Inject
-  private CategoryService categoryService;
-
   @Inject
   GeolocationService geolocationService;
-
+  @Inject
+  private CategoryService categoryService;
   @Inject
   private Logger log;
 
@@ -44,6 +38,12 @@ public class PostRESTService extends SecurityFilter {
 
   @Inject
   private Validator validator;
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Post> listAllPosts() {
+    return postService.retrieveAllOrderedByNewer();
+  }
 
   @GET
   @Path("/{id}:[0-9][0-9]*")

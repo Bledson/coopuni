@@ -1,5 +1,9 @@
 package br.edu.ufrn.imd.coopuni.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -7,6 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "geolocations")
 public class Geolocation implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)

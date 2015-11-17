@@ -1,5 +1,8 @@
 package br.edu.ufrn.imd.coopuni.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -9,8 +12,10 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "members", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "username"}))
 public class Member implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,15 +48,15 @@ public class Member implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "member")
-  private Collection<Comment> comments;
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "member")
+  private Set<Comment> comments;
 
   @OneToOne
   @PrimaryKeyJoinColumn
   private Image image;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "member")
-  private Collection<Post> posts;
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "member")
+  private Set<Post> posts;
 
   public String getToken() {
     return token;
@@ -117,11 +122,11 @@ public class Member implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-  public Collection<Comment> getComments() {
+  public Set<Comment> getComments() {
     return comments;
   }
 
-  public void setComments(Collection<Comment> comments) {
+  public void setComments(Set<Comment> comments) {
     this.comments = comments;
   }
 
@@ -133,11 +138,11 @@ public class Member implements Serializable {
     this.image = image;
   }
 
-  public Collection<Post> getPosts() {
+  public Set<Post> getPosts() {
     return posts;
   }
 
-  public void setPosts(Collection<Post> posts) {
+  public void setPosts(Set<Post> posts) {
     this.posts = posts;
   }
 }

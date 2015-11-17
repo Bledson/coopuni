@@ -1,7 +1,6 @@
 package br.edu.ufrn.imd.coopuni.service;
 
 import br.edu.ufrn.imd.coopuni.boundary.GeolocationDAO;
-import br.edu.ufrn.imd.coopuni.model.Area;
 import br.edu.ufrn.imd.coopuni.model.Geolocation;
 
 import javax.ejb.Stateless;
