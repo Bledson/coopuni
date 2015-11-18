@@ -48,7 +48,6 @@ public class MemberDAOImpl implements MemberDAO {
     } catch (NoResultException e) {
       return null;
     }
-
   }
 
   @Override

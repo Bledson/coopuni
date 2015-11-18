@@ -37,7 +37,7 @@ public class PostDAOImpl implements PostDAO {
   }
 
   @Override
-  public List<Post> findByUserId(Long id) {
+  public List<Post> findAllByUserId(Long id) {
     CriteriaBuilder cb = em.getCriteriaBuilder();
     CriteriaQuery<Post> c = cb.createQuery(Post.class);
     Root<Post> post = c.from(Post.class);

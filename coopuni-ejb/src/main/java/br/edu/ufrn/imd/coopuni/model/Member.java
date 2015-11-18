@@ -1,8 +1,5 @@
 package br.edu.ufrn.imd.coopuni.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -10,12 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "members", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "username"}))
 public class Member implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,15 +42,9 @@ public class Member implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
 
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "member")
-  private Set<Comment> comments;
-
   @OneToOne
   @PrimaryKeyJoinColumn
   private Image image;
-
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "member")
-  private Set<Post> posts;
 
   public String getToken() {
     return token;
@@ -122,27 +110,11 @@ public class Member implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-  public Set<Comment> getComments() {
-    return comments;
-  }
-
-  public void setComments(Set<Comment> comments) {
-    this.comments = comments;
-  }
-
   public Image getImage() {
     return image;
   }
 
   public void setImage(Image image) {
     this.image = image;
-  }
-
-  public Set<Post> getPosts() {
-    return posts;
-  }
-
-  public void setPosts(Set<Post> posts) {
-    this.posts = posts;
   }
 }

@@ -39,6 +39,20 @@ public class CommentRESTService extends SecurityFilter {
   private Validator validator;
 
   @GET
+  @Path("/member/{id:[0-9][0-9]*}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Comment> listAllPostsByPostId(@PathParam("id") long id) {
+    return commentService.retrieveAllByPostId(id);
+  }
+
+  @GET
+  @Path("/member/{id:[0-9][0-9]*}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Comment> listAllPostsByUserId(@PathParam("id") long id) {
+    return commentService.retrieveAllByUserId(id);
+  }
+
+  @GET
   @Path("/{id:[0-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
   public Comment lookupCommentById(@PathParam("id") long id) {

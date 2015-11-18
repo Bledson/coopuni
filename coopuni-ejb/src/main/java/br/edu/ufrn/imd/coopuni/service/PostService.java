@@ -25,10 +25,14 @@ public class PostService {
   }
 
   public List<Post> retrievePostsByUserId(long id) {
-    return postDAO.findByUserId(id);
+    return postDAO.findAllByUserId(id);
   }
 
   public Post retrieve(long id) {
     return postDAO.find(id);
+  }
+
+  public List<Post> retrieveAllByUserId(long id) {
+    return postDAO.findAllByUserId(id);
   }
 }

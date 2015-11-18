@@ -28,4 +28,12 @@ public class CommentService {
   public List<Comment> retrieveAllOrderedByNewer() {
     return commentDAO.findAllOrderedByNewer();
   }
+
+  public List<Comment> retrieveAllByUserId(long id) {
+    return commentDAO.findAllByUserId(id);
+  }
+
+  public List<Comment> retrieveAllByPostId(long id) {
+    return commentDAO.findAllByPostId(id);
+  }
 }

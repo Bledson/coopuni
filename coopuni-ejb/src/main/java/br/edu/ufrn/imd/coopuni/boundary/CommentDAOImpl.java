@@ -36,6 +36,24 @@ public class CommentDAOImpl implements CommentDAO {
   }
 
   @Override
+  public List<Comment> findAllByPostId(Long id) {
+    CriteriaBuilder cb = em.getCriteriaBuilder();
+    CriteriaQuery<Comment> c = cb.createQuery(Comment.class);
+    Root<Comment> comment = c.from(Comment.class);
+    c.select(comment).where(cb.equal(comment.get("post").get("id"), id));
+    return em.createQuery(c).getResultList();
+  }
+
+  @Override
+  public List<Comment> findAllByUserId(Long id) {
+    CriteriaBuilder cb = em.getCriteriaBuilder();
+    CriteriaQuery<Comment> c = cb.createQuery(Comment.class);
+    Root<Comment> comment = c.from(Comment.class);
+    c.select(comment).where(cb.equal(comment.get("member").get("id"), id));
+    return em.createQuery(c).getResultList();
+  }
+
+  @Override
   public List<Comment> findAllOrderedByNewer() {
     CriteriaBuilder cb = em.getCriteriaBuilder();
     CriteriaQuery<Comment> c = cb.createQuery(Comment.class);

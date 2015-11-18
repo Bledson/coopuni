@@ -1,8 +1,5 @@
 package br.edu.ufrn.imd.coopuni.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -10,7 +7,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "comments")
 public class Comment implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)

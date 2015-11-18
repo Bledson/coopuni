@@ -9,5 +9,5 @@ public interface PostDAO extends AbstractDAO<Long, Post> {
 
   List<Post> findAllOrderedByNewer();
 
-  List<Post> findByUserId(Long id);
+  List<Post> findAllByUserId(Long id);
 }

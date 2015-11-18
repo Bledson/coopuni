@@ -1,19 +1,11 @@
 package br.edu.ufrn.imd.coopuni.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "posts")
 public class Post implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +32,6 @@ public class Post implements Serializable {
   @JoinColumn(name = "area_id", referencedColumnName = "id")
   @OneToOne
   private Area area;
-
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "post")
-  private Set<Comment> comments;
 
   @JoinColumn(name = "category_id", referencedColumnName = "id")
   @ManyToOne
@@ -122,14 +111,6 @@ public class Post implements Serializable {
 
   public void setArea(Area area) {
     this.area = area;
-  }
-
-  public Set<Comment> getComments() {
-    return comments;
-  }
-
-  public void setComments(Set<Comment> comments) {
-    this.comments = comments;
   }
 
   public Category getCategory() {
