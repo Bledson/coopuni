@@ -22,16 +22,7 @@ import java.util.logging.Logger;
 @RequestScoped
 public class PostRESTService extends SecurityFilter {
   @Inject
-  AreaService areaService;
-  @Inject
-  GeolocationService geolocationService;
-  @Inject
-  private CategoryService categoryService;
-  @Inject
   private Logger log;
-
-  @Inject
-  private MemberService memberService;
 
   @Inject
   private PostService postService;

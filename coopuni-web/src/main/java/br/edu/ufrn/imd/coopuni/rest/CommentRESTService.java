@@ -3,7 +3,6 @@ package br.edu.ufrn.imd.coopuni.rest;
 import br.edu.ufrn.imd.coopuni.model.Comment;
 import br.edu.ufrn.imd.coopuni.service.CommentService;
 import br.edu.ufrn.imd.coopuni.service.MemberService;
-import br.edu.ufrn.imd.coopuni.service.PostService;
 import br.edu.ufrn.imd.coopuni.util.SecurityFilter;
 
 import javax.enterprise.context.RequestScoped;
@@ -33,22 +32,19 @@ public class CommentRESTService extends SecurityFilter {
   private MemberService memberService;
 
   @Inject
-  private PostService postService;
-
-  @Inject
   private Validator validator;
 
   @GET
-  @Path("/member/{id:[0-9][0-9]*}")
+  @Path("/post/{id:[0-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
-  public List<Comment> listAllPostsByPostId(@PathParam("id") long id) {
+  public List<Comment> listAllCommentsByPostId(@PathParam("id") long id) {
     return commentService.retrieveAllByPostId(id);
   }
 
   @GET
   @Path("/member/{id:[0-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
-  public List<Comment> listAllPostsByUserId(@PathParam("id") long id) {
+  public List<Comment> listAllCommentsByUserId(@PathParam("id") long id) {
     return commentService.retrieveAllByUserId(id);
   }
 
