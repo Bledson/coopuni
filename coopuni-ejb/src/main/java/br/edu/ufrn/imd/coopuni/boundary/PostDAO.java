@@ -10,4 +10,6 @@ public interface PostDAO extends AbstractDAO<Long, Post> {
   List<Post> findAllOrderedByNewer();
 
   List<Post> findAllByUserId(Long id);
+
+  void updateVote(String type, long postID);
 }

@@ -35,4 +35,8 @@ public class PostService {
   public List<Post> retrieveAllByUserId(long id) {
     return postDAO.findAllByUserId(id);
   }
+
+  public void vote (String type,long id){
+    postDAO.updateVote(type,id);
+  }
 }

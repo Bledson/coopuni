@@ -61,17 +61,17 @@ public class PostDAOImpl implements PostDAO {
 
   public void updateVote(String type, long postID) {
     Post post = this.find(postID);
-    int likes = post.getLikes();
-    int down = post.getDownvotes();
 
     CriteriaBuilder cb = this.em.getCriteriaBuilder();
     CriteriaUpdate<Post> update = cb.createCriteriaUpdate(Post.class);
     Root<Post> e = update.from(Post.class);
 
-    if (type.equals("up")) {
+    if (type.equals("like")) {
+      int likes = post.getLikes();
       update.set("likes", likes + 1);
     } else {
       if (type.equals("down")) {
+        int down = post.getDownvotes();
         update.set("downvotes", down + 1);
       }
     }

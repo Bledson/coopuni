@@ -54,6 +54,38 @@ public class PostRESTService extends SecurityFilter {
     return post;
   }
 
+  @PUT
+  @Path("/like/{id}")
+  public Response votelike(@PathParam("id") long id) {
+    Post post = postService.retrieve(id);
+    if(post == null)
+      return Response.status(404).build();
+    else {
+      try {
+        postService.vote("like", id);
+        return Response.ok().build();
+      }catch (Exception e) {
+        return Response.serverError().build();
+      }
+    }
+  }
+
+  @PUT
+  @Path("/down/{id}")
+  public Response votedown(@PathParam("id") long id) {
+    Post post = postService.retrieve(id);
+    if(post == null)
+      return Response.status(404).build();
+    else {
+      try {
+        postService.vote("down", id);
+        return Response.ok().build();
+      }catch (Exception e) {
+        return Response.serverError().build();
+      }
+    }
+  }
+
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
