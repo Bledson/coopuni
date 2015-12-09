@@ -20,6 +20,10 @@ public class PostService {
     postDAO.create(post);
   }
 
+  public List<Post> retrieveAllOrderedByLikes(long id) {
+    return postDAO.findAllOrderedByLikes();
+  }
+
   public List<Post> retrieveAllOrderedByNewer() {
     return postDAO.findAllOrderedByNewer();
   }

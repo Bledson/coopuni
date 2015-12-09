@@ -7,6 +7,8 @@ import java.util.List;
 public interface PostDAO extends AbstractDAO<Long, Post> {
   void delete(Post entity) throws Exception;
 
+  List<Post> findAllOrderedByLikes();
+
   List<Post> findAllOrderedByNewer();
 
   List<Post> findAllByUserId(Long id);

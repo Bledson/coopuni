@@ -46,6 +46,15 @@ public class PostDAOImpl implements PostDAO {
   }
 
   @Override
+  public List<Post> findAllOrderedByLikes() {
+    CriteriaBuilder cb = em.getCriteriaBuilder();
+    CriteriaQuery<Post> c = cb.createQuery(Post.class);
+    Root<Post> post = c.from(Post.class);
+    c.select(post).orderBy(cb.desc(post.get("likes")));
+    return em.createQuery(c).getResultList();
+  }
+
+  @Override
   public List<Post> findAllOrderedByNewer() {
     CriteriaBuilder cb = em.getCriteriaBuilder();
     CriteriaQuery<Post> c = cb.createQuery(Post.class);

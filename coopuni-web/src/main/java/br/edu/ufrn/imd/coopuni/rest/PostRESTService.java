@@ -44,6 +44,13 @@ public class PostRESTService extends SecurityFilter {
   }
 
   @GET
+  @Path("/likes")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Post> listAllPostsByLikes(@PathParam("id") long id) {
+    return postService.retrieveAllOrderedByLikes(id);
+  }
+
+  @GET
   @Path("/{id:[0-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
   public Post lookupPostById(@PathParam("id") long id) {
